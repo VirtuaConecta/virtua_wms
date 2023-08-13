@@ -1,0 +1,237 @@
+﻿ @model OCargaViewModel
+@{
+	ViewBag.Acesso = "Criar";
+	ViewBag.NomeTela = "Criar Ordem de Carga";
+
+	Layout = "~/Views/Shared/__LayoutWms.cshtml";
+}
+@section MeusStyles{
+<style>
+	/*Customizamos as mensagens de erro do MVC este nome de classe e padrão para msg de erro*/
+	.field-validation-error {
+		color: red;
+		font-size: 9px;
+		font-weight: bold;
+		font-family: Verdana;
+		background-image: url('../../../../Content/Images/erro.png');
+		background-repeat: no-repeat;
+		padding-left: 18px;
+		/*Com CSS3 mandamos a imagem se auto redimensionar*/
+		background-size: contain;
+	}
+
+</style>
+}
+
+<div class="row wizard-row">
+ <div class="col-md-12 fuelux">
+  <div class="block-wizard">
+   <div id="wizard1" class="wizard wizard-ux">
+	<ul class="steps">
+	 <li data-step="1" class="active">Passo1<span class="chevron"></span></li>
+	 <li data-step="2">Passo 2<span class="chevron"></span></li>
+	 <li data-step="3">Passo 3<span class="chevron"></span></li>
+	</ul>
+	<div class="actions">
+	 <button type="button" class="btn btn-xs btn-prev btn-default"><i class="fa fa-chevron-left"></i>Anterior</button><button type="button" data-last="Finish" class="btn btn-xs btn-next btn-default">Próximo<i class="fa fa-chevron-right"></i></button>
+	</div>
+	<div class="step-content">
+	 <div data-step="1" class="step-pane active">
+	  <form action="#" data-parsley-namespace="data-parsley-" data-parsley-validate="" novalidate="" class="form-horizontal group-border-dashed">
+	   <div class="form-group no-padding">
+		<div class="col-sm-7">
+		 <h3 class="hthin">Dados Gerais</h3>
+		</div>
+	   </div>
+
+
+	   <div class="form-horizontal" id="FormCriar">
+
+								@Html.ValidationMessage("Hacker")
+								@Html.ValidationSummary(true)
+
+								@* Linha 1 ---------------------------------------------------------------------------------------------------------------- *@
+
+		<div class="form-group">
+
+									@Html.LabelFor(x => x.Id_transportadora, new { @Class = " col-sm-2 Labelf" })
+		 <div class="col-sm-3">
+										@Html.DropDownListFor(x => x.Id_transportadora, Model.Lista_transportadora, "", new { @Class = "form-control input-sm " })
+										@Html.ValidationMessageFor(x => x.Id_transportadora)
+		 </div>
+									@Html.LabelFor(x => x.Nr_coleta, new { @Class = "  col-sm-1 Labelf" })
+		 <div class="col-sm-2">
+										@Html.TextBoxFor(x => x.Nr_coleta, new { @Class = "form-control input-sm " })
+		 </div>
+									@Html.LabelFor(x => x.Id_ord_carga, new { @Class = " col-sm-1 Labelf" })
+		 <div class="col-sm-2">
+										@Html.TextBoxFor(x => x.Id_ord_carga, new { @Class = "form-control input-sm " })
+		 </div>
+		</div>
+
+								@* Linha 2 ---------------------------------------------------------------------------------------------------------------- *@
+
+		<div class="form-group">
+
+									@Html.LabelFor(x => x.Tipo_veiculo, new { @Class = " col-sm-1 Labelf" })
+
+		 <div class="col-sm-2">
+										@Html.DropDownListFor(x => x.Tipo_veiculo, Model.Lista_tipo_veiculo, "", new { @Class = "form-control input-sm Labelf" })
+										@Html.ValidationMessageFor(x => x.Tipo_veiculo)
+		 </div>
+
+									@Html.LabelFor(x => x.Tipo_carga, new { @Class = " col-sm-1 Labelf" })
+		 <div class="col-sm-1">
+
+										@Html.DropDownListFor(x => x.Tipo_carga, Model.Lista_tipo_carga, "", new { @Class = "form-control input-sm Labelf" })
+										@Html.ValidationMessageFor(x => x.Tipo_carga)
+		 </div>
+
+									@Html.LabelFor(x => x.Dt_agenda, new { @Class = "col-sm-1 Labelf" })
+		 <div class="col-sm-2">
+										@Html.TextBoxFor(x => x.Dt_agenda.Date, new { @Class = "form-control input-sm  datepicker " })
+										@Html.ValidationMessageFor(x => x.Dt_agenda)
+		 </div>
+
+									@Html.LabelFor(x => x.Hora_agenda, new { @Class = "col-sm-1 Labelf" })
+		 <div class="col-sm-1">
+										@Html.TextBoxFor(x => x.Hora_agenda.TimeOfDay, new { @Class = "form-control input-sm " })
+										@Html.ValidationMessageFor(x => x.Hora_agenda)
+		 </div>
+
+									@Html.LabelFor(x => x.Stat_evento, new { @Class = "col-sm-1 Labelf" })
+		 <div class="col-sm-1">
+										@Html.DropDownListFor(x => x.Stat_evento, Model.Lista_status_oc, "", new { @Class = "form-control input-sm Labelf" })
+										@Html.ValidationMessageFor(x => x.Stat_evento)
+		 </div>
+		</div>
+
+	   </div>
+
+
+	   <div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+		 <button class="btn btn-default">Cancelar</button>
+		 <button data-wizard="#wizard1" class="btn btn-primary wizard-next">Próxima etapa <i class="fa fa-caret-right"></i></button>
+		</div>
+	   </div>
+
+
+	  </form>
+	 </div>
+
+	 <div data-step="2" class="step-pane">
+	  <form action="#" data-parsley-namespace="data-parsley-" data-parsley-validate="" novalidate="" class="form-horizontal group-border-dashed">
+	   <div class="form-group no-padding">
+		<div class="col-sm-7">
+		 <h3 class="hthin">Escolher Notas</h3>
+		</div>
+	   </div>
+	   <div class="form-group">
+	   </div>
+	   <div class="form-group">
+		<div class="col-sm-12">
+		  <button data-wizard="#wizard1" class="btn btn-default wizard-previous"><i class="fa fa-caret-left"></i> Anterior</button>
+	      <button data-wizard="#wizard1" class="btn btn-primary wizard-next">Próximo <i class="fa fa-caret-right"></i></button></div>
+	   </div>
+	  </form>
+	 </div>
+
+
+	 <div data-step="3" class="step-pane">
+	  <form action="#" data-parsley-namespace="data-parsley-" data-parsley-validate="" novalidate="" class="form-horizontal group-border-dashed">
+	   <div class="form-group no-padding">
+		<div class="col-sm-7">
+		 <h3 class="hthin">Configuration</h3>
+		</div>
+	   </div>
+	   <div class="form-group">
+		<div class="col-sm-6">
+		 <label class="control-label">Buy Credits: <span id="credits">$0</span></label>
+		 <p>This option allow you to buy an amount of credits.</p><input id="credit_slider" type="text" value="0" class="bslider form-control">
+		</div>
+		<div class="col-sm-6">
+		 <label class="control-label">Change Plan</label>
+		 <p>Change your plan many times as you want.</p><select class="select2">
+		  <optgroup label="Personal">
+		   <option value="p1">Basic</option>
+		   <option value="p2">Medium</option>
+		  </optgroup>
+		  <optgroup label="Company">
+		   <option value="p3">Standard</option>
+		   <option value="p4">Silver</option>
+		   <option value="p5">Gold</option>
+		  </optgroup>
+		 </select>
+		</div>
+	   </div>
+	   <div class="form-group">
+		<div class="col-sm-6">
+		 <label class="control-label">Payment Rate: <span id="rate">0%</span></label>
+		 <p>Choose your payment rate to calculate how much money you will recieve.</p>
+		 <input id="rate_slider" data-slider-min="0" data-slider-max="100" type="text" value="0" class="bslider form-control">
+		</div>
+		<div class="col-sm-6">
+		 <label class="control-label">Keywords</label>
+		 <p>Write your keywords to do a successful CEO with web search engines.</p><input type="hidden" value="brown,blue,green" class="tags">
+		</div>
+	   </div>
+	   <div class="form-group">
+		<div class="col-sm-12"><button data-wizard="#wizard1" class="btn btn-default wizard-previous"><i class="fa fa-caret-left"></i> Anterior</button><button data-wizard="#wizard1" class="btn btn-success wizard-next"><i class="fa fa-check"></i> Completado</button></div>
+	   </div>
+	  </form>
+	 </div>
+
+	</div>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+@section MeusScripts{
+
+<script type="text/javascript">
+	$("#credit_slider").slider().on("slide", function(e) {
+		$("#credits").html("$" + e.value);
+	});
+
+	$("#rate_slider").slider().on("slide", function(e) {
+		$("#rate").html(e.value + "%");
+	});
+	$(".datepicker").datepicker(
+				{
+					dateFormat: 'yy-mm-dd',
+					dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+					dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+					dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+					monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+					monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+					nextText: 'Próximo',
+					prevText: 'Anterior',
+
+					timeOnlyTitle: 'Tempo',
+					timeText: 'Tempo',
+					hourText: 'Hora',
+					minuteText: 'Minuto',
+					secondText: 'Segundo',
+					currentText: 'Agora',
+					closeText: 'Fechar',
+
+
+					timeFormat: 'HH:mm:ss',
+					pickerTimeFormat: 'HH:mm:ss',
+
+					separator: ' '
+
+
+				});
+
+
+</script>
+
+
+
+
+
+    }

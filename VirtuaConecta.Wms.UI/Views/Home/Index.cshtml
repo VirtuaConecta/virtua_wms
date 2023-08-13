@@ -1,0 +1,96 @@
+﻿@{
+    @* Não vamos carregar a página de layout*@
+   
+    ViewBag.Title = "Gestão de Logística - VirtuaConecta";
+}
+
+
+@*Vincula o modelo de dados*@
+
+@model UsuarioViewModel
+
+@* é preciso fazer a autentição  nã permitindo abrir qualquer pagina se não estiver logado
+
+        A atenticação do usario no BD  está ok
+        Validação da pagina de login vazia ok
+    criei uma session com o login do usuario ok
+
+
+        tentei criar autorização colocando no Web.config:
+
+            <!-- redireciona para pagina de login -->
+        <authentication mode="Forms">
+          <forms loginUrl="~/Adm/Usuario/Login" timeout="2880" />
+        </authentication>
+        <!-- Diz a aplicação que somente usuários logados tem acesso as páginas.-->
+        <authorization>
+          <deny users="?"/>
+        </authorization>
+
+    criei a classe FilterConfig.cs em app_star e coloquei   [AllowAnonymous] no Controller mas não funciona.
+
+
+
+*@
+
+
+<div class="header">
+
+    <h3 class="text-center"><img src="~/assets/img/logo_v.png" alt="logo" class="logo-img">WMS - Logar</h3>
+
+</div>
+<div>
+    @using (Html.BeginForm())
+    {
+        <div style="margin-bottom: 0px !important;" class="form-horizontal">
+
+            @* Exibe a mensagem do JS Desabilitado *@
+            @Html.ValidationMessage("Hacker")
+
+            <div class="content">
+                <h4 class="title">Acesso ao Sistema</h4>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                            <!--<input id="usuario" type="text" placeholder="Usuario" class="form-control">-->
+                            @Html.TextBoxFor(x => x.Login, new { @Class = "form-control", placeholder = "Usuario" })
+                            @Html.ValidationMessageFor(x=>x.Login)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                            <!--<input id="senha" type="password" placeholder="Senha" class="form-control">-->
+                            @Html.PasswordFor(x => x.Senha, new { @Class = "form-control", placeholder = "Senha" })
+                            @Html.ValidationMessageFor(x=>x.Senha)
+
+                            <!-- Campos Ocultos-->
+                            @Html.HiddenFor(x => x.NomeUsuario, new { Value="Login"})
+                            @Html.HiddenFor(x => x.Email, new { Value = "teste@teste.com" })
+                            <!-- useu um cpf falso de teste-->
+                            @Html.HiddenFor(x => x.Cpf, new { Value = "578.253.115-07" })
+
+                            @Html.HiddenFor(x => x.Area, new { Value = "xxxxx" })
+                            @Html.HiddenFor(x => x.Bloqueado, new { Value = "X" })
+                            @Html.HiddenFor(x => x.Cargo, new { Value = "xxxxxxx" })
+                            
+                            @Html.HiddenFor(x => x.Telefone, new { Value = "(99)9999-9999" })
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="foot">
+                <button data-dismiss="modal" type="submit" class="btn btn-primary">Acessar</button>
+            </div>
+
+        </div>
+    }
+</div>

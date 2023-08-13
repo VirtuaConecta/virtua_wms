@@ -1,0 +1,178 @@
+﻿@model DadoCadastroUsuarioViewModel
+@{
+
+    Layout = "~/Views/Shared/__LayoutWms.cshtml";
+}
+
+@section MeusStyles
+{
+    <link href="~/assets/css/tabela_local.css" rel="stylesheet" />
+    <style>
+        .visibilidade {
+            visibility: hidden;
+        }
+    </style>
+}
+
+<div class="col-sm-12 col-md-12 block-flat">
+    @using (Html.BeginForm())
+    {
+
+        @if (Model.usuario.Codigo != 0)
+        {
+            <h3 class="text-center"><strong>Edição de usuário</strong></h3>
+        }
+        else
+        {
+            <h3 class="text-center"><strong>Cadastro de usuário</strong></h3>
+        }
+
+        <br />
+        <br />
+
+        <div class="form-group">
+            <div>
+                <label class="col-sm-1 control-label ">Nome:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.usuario.NomeUsuario, Model.usuario.NomeUsuario, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Login:</label>
+                <div class="col-sm-1" style="width:auto">
+                    @if (Model.usuario.Codigo != 0)
+                    {
+                        @Html.TextBoxFor(x => x.usuario.Login, Model.usuario.Login, new { @Class = "form-control input-sm   ", disabled = "disabled" })
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(x => x.usuario.Login, Model.usuario.Login, new { @Class = "form-control input-sm   " })
+                    }
+                </div>
+
+                <label class="col-sm-1 control-label ">Cargo:</label>
+                <div class="col-sm-1" style="width:auto;">
+
+                    @Html.TextBoxFor(x => x.usuario.Cargo, Model.usuario.Cargo, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Status:</label>
+                <div class="col-sm-1">
+
+                    @Html.TextBoxFor(x => x.usuario.Bloqueado, Model.usuario.Bloqueado, new { @Class = "form-control input-sm " })
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+
+            <div>
+                <label class="col-sm-1 control-label ">Senha:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.senha, "", new { @Class = "form-control input-sm   ", type = "password" })
+                </div>
+
+                <label class="col-sm-1 control-label ">Area:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.usuario.Area, Model.usuario.Area, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Email:</label>
+                <div class="col-sm-3">
+
+                    @Html.TextBoxFor(x => x.usuario.Email, Model.usuario.Email, new { @Class = "form-control input-sm   " })
+                </div>
+
+
+
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div>
+                <label class="col-sm-2 control-label ">Telefone :</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.usuario.Telefone, Model.usuario.Telefone, new { placeholder = "(__)_____-____", @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Obs:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.usuario.Observacao, Model.usuario.Observacao, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Cpf:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.usuario.Cpf, Model.usuario.Cpf, new { placeholder = "___.___.___-__", @Class = "form-control input-sm   " })
+                </div>
+
+
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div>
+                <label class="col-sm-1 control-label ">Perfil:</label>
+                <div class="col-sm-2" style="width:auto">
+                    @*@if (Model.usuario.Cod_perfil == 0)
+                    {*@
+                        @Html.DropDownListFor(x => x.usuario.Cod_perfil, Model.perfils, "Selecione..", new { @Class = "form-control", @readonly = "readonly", })
+                    @*}
+                    else
+                    {
+                        @Html.DropDownListFor(x => x.usuario.Cod_perfil, Model.perfils, "Selecione..", new { @Class = "form-control", @readonly = "readonly",@SelectListItem= Model.usuario.Cod_perfil, })
+                    }*@
+                </div>
+
+
+
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            @if (!String.IsNullOrEmpty(Model.Erro))
+            {
+                <label style="color:red;font-size:small;">@Model.Erro</label>
+            }
+            <div class="form-group">
+                <div class="col-sm-offset-11">
+                    <div>
+                        <input class="btn btn-success" type="submit" name="Pesquisar" id="pesqisar" value="Salvar" />
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        @Html.TextBoxFor(x => x.usuario.Codigo, Model.usuario.Codigo.ToString(), new { @Class = "visibilidade" })
+        @Html.TextBoxFor(x => x.usuario.Senha, Model.usuario.Senha, new { @Class = "visibilidade" })
+        
+        @if (Model.usuario.Codigo != 0)
+            @Html.TextBoxFor(x => x.usuario.Login, Model.usuario.Login, new { @Class = "visibilidade" })
+    }
+
+</div>
+ @section MeusScripts{
+     <script>
+		$(document).ready(function () {
+
+            $('#usuario_Cpf').mask('999.999.999-99');
+            $('#usuario_Telefone').mask('(99)99999-9999');
+
+ });
+
+     </script>
+}
+
+

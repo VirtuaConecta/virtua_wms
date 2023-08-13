@@ -1,0 +1,195 @@
+﻿
+@{
+    @model List<ListaConferenciaViewModel>
+    Layout = "";
+
+}
+<style>
+    p.boxmodel2 {
+        width: 300px;
+        height: 150px;
+        /* background: #900;*/
+        color: #FFF;
+        padding: 20px;
+        border: 5px solid #CCC;
+    }
+
+    .style9 {
+        font-family: Arial;
+        font-size: 9px;
+    }
+
+
+    .style11 {
+        font-family: Arial;
+        font-size: 11px;
+    }
+
+    .style12 {
+        font-family: Arial;
+        font-size: 12px;
+    }
+
+    .style14 {
+        font-family: Arial;
+        font-size: 14px;
+    }
+
+    .style13 {
+        font-family: Arial;
+        font-size: 13px;
+    }
+    .item_tab {
+        font-family: Arial;
+        font-size: 14px;
+        font-weight:600;
+    }
+    .style16 {
+        font-family: Arial;
+        font-size: 16px;
+    }
+    .style18 {
+        font-family: Arial;
+        font-size: 18px;
+    }
+    .style22 {
+        font-family: Arial;
+        font-size: 22px;
+    }
+
+    .style24 {
+        font-family: Arial;
+        font-size: 24px;
+    }
+
+    .style28 {
+        font-family: Arial;
+        font-size: 28px;
+    }
+
+    .break {
+        page-break-after: always;
+    }
+    .breakB {
+        page-break-before: always;
+    }
+</style>
+
+
+
+@foreach (var item in Model)
+{
+<body>
+    <center>
+        <table width="879" border="0" align="left" cellpadding="0" cellspacing="0">
+            <tr>
+                <th width="879" scope="col">
+                    <table width="879" border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+                        <tr class="style24">
+                            <th width="879" scope="col"><p>Lista de Separação - Cross Docking </p>            </th>
+                        </tr>
+                        <tr class="style18">
+                            <th align="left" scope="col">Cliente :&nbsp; @item.Nome_cli</th>
+                        </tr>
+                        <tr class="style18">
+                            <th align="left" scope="col">Destino :&nbsp;@item.Destino</th>
+                        </tr>
+                    </table>
+                    <table width="879" border="1" align="center" bordercolor="#000000">
+                        <tr>
+                            <th><span class="style22">Nfs :@item.nfs | Data :@item.DataNfe | Peso :@item.Pesos </span></th>
+                        </tr>
+                    </table>
+
+                    <table width="879" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000">
+
+
+
+                        <tr class="style16">
+                            <td width="50">Item</td>
+                            <th width="121" scope="col">SKU</th>
+                            <th width="30" scope="col">C 1 </th>
+                            <th width="50" scope="col">Und</th>
+                            <th width="67" scope="col">Qtd </th>
+                            <th width="30" scope="col">C 2</th>
+                            <th width="77" scope="col">cod barra </th>
+                            <th width="404" scope="col">Descri&ccedil;&atilde;o Produto</th>
+                            <!-- <th width="50" scope="col"><span class="style6 style11">Cod Aux </span></th> -->
+                        </tr>
+
+                      
+
+                        @foreach (var item1 in item.Itens)
+                        {
+
+
+
+                    <tr class="item_tab">
+                        <td width="50">@item1.Id_item</td>
+                        <td width="121">@item1.Sku</td>
+
+                        <td width="30" align="center"></td>
+                        <td width="50" align="center">@item1.Und</td>
+                        <td width="67" align="center">@item1.Qtd_item</td>
+                        <td width="30" align="center"></td>
+
+                        <td width="77">@item1.Ean</td>
+                        <td width="404">@item1.Descricao</td>
+                        <!--     <td width="50"><span class="style6 style11"><%=RegPed(9,a) %></span></td> -->
+                    </tr>
+
+
+
+                           
+                        }
+                    </table>
+                    <table width="879" border="1" cellspacing="0" cellpadding="0">
+
+                        <tr class="style14">
+                            <th height="41" colspan="4" scope="col"><p>Tipo de Carga : Estivada ( &nbsp;&nbsp;)&nbsp; - Paletizada (&nbsp;&nbsp; ) </p></th>
+                            <th width="123" scope="col"> <div align="left">Nr Paletes : </div></th>
+                            <th scope="col">Volumes :@item.Volumes</th>
+                        </tr>
+                        <tr class="style14">
+                            <th width="81" height="37" scope="col">Ve&iacute;culo  </th>
+                            <th width="72" scope="col">&nbsp;</th>
+                            <th width="73" scope="col">Motorista</th>
+                            <th width="204" scope="col">&nbsp;</th>
+                            <th scope="col">Placas</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                        <tr class="style14">
+                            <th colspan="6" scope="col">&nbsp;</th>
+                        </tr>
+
+                        <tr class="style9">
+                            <th height="36" colspan="5" scope="col"><div align="left">Conferencia 1: </div></th>
+                            <th width="115" height="36" scope="col"><div align="left">Em:</div></th>
+                        </tr>
+                        <tr class="style9">
+                            <th height="28" colspan="5" scope="col"><div align="left">Conferencia 2: </div></th>
+                            <th height="28" scope="col"><div align="left">Em:</div></th>
+                        </tr>
+                    </table>
+                    <p><span class="style9">R=Rua N=N&iacute;vel P=Posi&ccedil;&atilde;o </span></p>
+
+                    <p>
+                        <a href="javascript:self.print();"><img src="~/assets/img/impressora.gif" width="22" height="19" border="0"></a><BR>
+                        &nbsp;
+                    </p>
+                </th>
+            </tr>
+            <tr>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </table>
+        <p>&nbsp;</p>
+    </center>
+    @if (!String.IsNullOrEmpty(item.nfs))
+    {
+        <div class="break"> </div>
+    }
+
+</body>
+   
+}

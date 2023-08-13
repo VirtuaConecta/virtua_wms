@@ -1,0 +1,128 @@
+﻿@model IEnumerable<ProdutosViewModel>
+@{
+    ViewBag.Title = "Lista de Sku";
+    Layout = "~/Views/Shared/__LayoutWms.cshtml";
+}
+
+@{ 
+    var sku = "";
+}
+
+@section MeusStyles
+{
+    <link href="~/assets/css/tabela_local.css" rel="stylesheet" />
+
+    <style>
+        .pm {
+            cursor: pointer;
+        }
+
+        .detail {
+            background-color: #d4d0d8;
+            padding: 7px;
+        }
+/*
+        td.details-control {
+            background: url('../../assets/img/edit_icon.png') no-repeat center center;
+            cursor: pointer;
+        }
+        */
+    </style>
+}
+
+<div class="form-group">
+    <h2 class="col-sm-11 ">Lista de Sku</h2>
+    @* <input class="col-sm-1 pm excel" style="height: 64px;width:64px;border:none" type="button" id="btnExport" />*@
+
+
+
+    <a class="fa-4x fa fa-plus-circle" href="~/Cadastro/Cadastro_Sku?Sku=" id="CriarSku" style="border:none;background-color:transparent;"></a>
+</div>
+
+<div class="col-sm-12 col-md-12">
+    <div class="block-flat">
+
+        <table id="TabelaPed" class="tabelaFormato1">
+            <thead>
+                <tr>
+                   
+
+                    <th>Sku</th>
+                    <th>Descricao</th>
+                   
+                    <th>Codigo de barra</th>
+
+
+                    <th>Ncm</th>
+                    <th>Cst</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var skuItem in Model)
+                {
+                <tr>
+                    <td>@skuItem.Sku</td>
+                    <td>@skuItem.Descricao</td>
+
+                    <td>@skuItem.Cod_bar1</td>
+                    <td>@skuItem.Ncm</td>
+                    <td>@skuItem.Cst</td>
+                    @{ 
+                        sku = "Cadastro_Sku?Id_produto=" + skuItem.Id_produto;
+                    }
+                    <td class="pm details-control"><a href="@sku" style="color:transparent;position:center;"><img src="~/assets/img/edit_icon.png"/></a></td>
+
+                </tr>
+
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<div class="col-sm-12 col-md-12 modal" id="modal" style="background:transparent;">
+
+</div>
+
+@section MeusScripts{
+    <script type="text/javascript">
+
+
+
+        $(document).ready(function () {
+
+            var tabela = $('#TabelaPed').DataTable({
+
+                paging: true
+
+            });      
+            
+
+
+            //$('#TabelaPed tbody').on('click', 'td.details-control', function () {
+            //    var oTr = $(this).parent('tr');
+            //    var Sku = oTr.find("td:eq(0)").html()
+            //    $("#modal").load("Cadastro_Sku?Sku=" + Sku, function () {
+            //        $("#modal").modal();
+            //    });
+            //});
+
+            //$('#CriarSku').on('click', function () {
+
+            //    var Sku = "";
+            //    $("#modal").load("Cadastro_Sku?Sku=" + Sku, function () {
+            //        $("#modal").modal();
+            //    });
+            //});
+
+
+        });
+
+    </script>
+}

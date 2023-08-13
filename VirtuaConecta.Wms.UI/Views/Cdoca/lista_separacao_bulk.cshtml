@@ -1,0 +1,162 @@
+﻿
+@{
+    @model ListaConferenciaViewModel
+    Layout = "";
+
+}
+
+
+<style>
+    p.boxmodel2 {
+        width: 300px;
+        height: 150px;
+        /* background: #900;*/
+        color: #FFF;
+        padding: 20px;
+        border: 5px solid #CCC;
+    }
+
+    .style9 {
+        font-family: Arial;
+        font-size: 9px;
+    }
+
+
+    .style11 {
+        font-family:Arial; 
+        font-size: 11px;
+    }
+
+    .style12 {
+        font-family:Arial;
+        font-size: 12px;
+    }
+
+    .style13 {
+        font-family: Arial;
+            font-size: 12px;
+    }
+
+    .style24 {
+        font-family: Arial;
+        font-size: 24px;
+    }
+
+    .style28 {
+        font-family: Arial;
+        font-size: 28px;
+    }
+</style>
+
+
+<body>
+    <center>
+        <table width="829" border="0" align="left" cellpadding="0" cellspacing="0">
+            <tr>
+                <th width="73" scope="col">
+                    <table width="829" border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+                        <tr class="style6">
+                            <th width="829" scope="col"><span class="style28"><p>Lista de Conferência - Cross Docking </p></span>             </th>
+                        </tr>
+                        <tr class="style12">
+                            <th align="left" scope="col"><span class="style24">Cliente :&nbsp; @Model.Nome_cli </span></th>
+                        </tr>
+                        <tr class="style12">
+                            <th align="left" scope="col"><span class="style28"></span></th>
+                        </tr>
+                    </table>
+                    <table width="829" border="1" align="center" bordercolor="#000000">
+                        <tr>
+                            <th><span class="style27">Nfs :   </span></th>
+                        </tr>
+                    </table>
+                    @if(@Model.Itens != null)
+                    {
+                        <table width="829" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000">
+
+
+
+                            <tr height="8px">
+                                <th width="121" scope="col"><span class="style11">SKU</span></th>
+                                <th width="30" scope="col"><span class="style11">C 1 </span></th>
+                                <th width="50" scope="col"><span class="style11">Und</span></th>
+                                <th width="67" scope="col"><span class="style11">Qtd </span></th>
+                                <th width="30" scope="col"><span class="style11">C 1 </span></th>
+                                <th width="77" scope="col"><span class="style11">cod barra </span></th>
+                                <th width="350" scope="col"><span class="style11">Descri&ccedil;&atilde;o Produto</span></th>
+                                <!--  <th width="50" scope="col"><span class="style6 style11">Cod Aux </span></th> -->
+
+                                <th width="50" scope="col"><span class="style11">Peso </span></th>
+                                <th width="72" scope="col"><span class="style11">nfs </span></th>
+                            </tr>
+                            @foreach (var ordem in Model.Itens)
+                            {
+
+                                <tr>
+                                    <td width="121"><span class=" style11">@ordem.Sku</span></td>
+                                    <td width="30" align="center"><span class=" style11">  </span></td>
+                                    <td width="50"><span class=" style11">@ordem.Und</span></td>
+                                    <td width="67" align="center"><span class=" style11">@ordem.Qtd_item</span></td>
+                                    <td width="30" align="center"><span class=" style11">  </span></td>
+                                    <td width="77"><span class="style11">@ordem.Ean</span></td>
+                                    <td width="350"><span class="style11">@ordem.Descricao</span></td>
+
+                                    <td width="50"><span class="style11">@ordem.peso_item</span></td>
+                                    <th width="72"><span class="style9">@ordem.Notas </span></th>
+
+                                </tr>
+                            }
+                            @*vVolumes=vVolumes+cdbl(RegPed(5,a))
+                vPeso=vPeso+cdbl(RegPed(2,a))
+                Response.Flush
+
+                next %>*@
+                        </table>
+                        <table width="829" border="1" cellspacing="0" cellpadding="0">
+
+                            <tr>
+                                <th height="41" colspan="4" scope="col"><p>Tipo de Carga : Estivada ( &nbsp;&nbsp;)&nbsp; - Paletizada (&nbsp;&nbsp; ) </p></th>
+                                <th width="123" scope="col"> <div align="left">Nr Paletes : </div></th>
+
+                                @{string vp = $"{@Model.Volumes}/{@Model.Pesos}"; }
+                                <th scope="col" class="style14">Vol / Peso: @vp</th>
+                            </tr>
+                            <tr>
+                                <th width="81" height="37" scope="col">Ve&iacute;culo  </th>
+                                <th width="72" scope="col">&nbsp;</th>
+                                <th width="73" scope="col">Motorista</th>
+                                <th width="204" scope="col">&nbsp;</th>
+                                <th scope="col">Placas</th>
+                                <th scope="col">&nbsp;</th>
+                            </tr>
+                            <tr>
+                                <th colspan="6" scope="col">&nbsp;</th>
+                            </tr>
+
+                            <tr class="formato2">
+                                <th height="36" colspan="5" scope="col"><div align="left" class="style11">Conferencia 1: </div></th>
+                                <th width="115" height="36" scope="col"><div align="left"><span class="style12"><span class="style13"><span class="style11"></span></span></span>Em:</div></th>
+                            </tr>
+                            <tr class="formato2">
+                                <th height="28" colspan="5" scope="col"><div align="left" class="style11">Conferencia2: </div></th>
+                                <th height="28" scope="col"><div align="left"><span class="style12"><span class="style13"><span class="style11"></span></span></span>Em:</div></th>
+                            </tr>
+                        </table>
+                        <p><span class="formato2">R=Rua N=N&iacute;vel P=Posi&ccedil;&atilde;o </span></p>
+
+                    }
+                    <p>
+                        <a href="javascript:self.print();"><img src="~/assets/img/impressora.gif" width="22" height="19" border="0"></a><BR>
+                        &nbsp;
+                    </p>
+                </th>
+            </tr>
+            <tr>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </table>
+        <p>&nbsp;</p>
+    </center>
+</body>
+<BR>
+

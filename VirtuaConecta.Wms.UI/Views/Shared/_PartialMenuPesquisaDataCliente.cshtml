@@ -1,0 +1,90 @@
+﻿@model DadoPesquisaViewModel
+
+<style>
+    .Labelf {
+        color: black;
+        font-family: Arial;
+        font-size: 14px;
+        padding-left: 0px;
+        padding-bottom: -5px;
+        padding-top: -1px;
+        padding-right: 0px;
+    }
+</style>
+
+<div class="col-sm-12 col-md-12 block-flat">
+
+
+
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+
+            <label class="col-sm-1 control-label Labelf">Sku:</label>
+
+
+            <div class="col-sm-2" style="width:auto">
+
+                @Html.TextBoxFor(x => x.Id_str, new { @Class = "form-control input-sm ", autocomplete = "off" })
+            </div>
+        </div>
+        <br>
+        <label class="col-sm-1 control-label Labelf" style="text-align:left">Ou:</label>
+        <br>
+        <div class="form-group">
+
+
+
+            <label class="col-sm-1 control-label Labelf">Data Inicial:</label>
+
+
+            <div class="col-sm-2" style="width:auto">
+
+                @Html.TextBoxFor(x => x.Dt_ini, new { @Class = "form-control input-sm  datepicker ", autocomplete = "off" })
+            </div>
+
+            <label class="col-sm-1 control-label Labelf">Data Final:</label>
+
+            <div class="col-sm-2" style="width:auto">
+
+                @Html.TextBoxFor(x => x.Dt_fim, new { @Class = "form-control input-sm  datepicker ", autocomplete = "off" })
+            </div>
+
+
+            <label class="col-sm-1 control-label Labelf">Cliente:</label>
+
+            <div class="col-sm-2" style="width:auto">
+
+                @Html.DropDownListFor(x => x.Id, Model.Lista, "Selecione..", new { @Class = "form-control", @readonly = "readonly", })
+
+
+            </div>
+
+
+        </div>
+
+        <br />
+        <br />
+
+        <br />
+        <br />
+
+        <br />
+        @if (!String.IsNullOrEmpty(Model.Erro))
+        {
+            <label style="color:red;font-size:small;">@Model.Erro</label>
+        }
+        <div class="form-group">
+            <div class="col-sm-offset-11">
+                <div>
+                    <input class="btn btn-success" type="submit" name="Pesquisar" id="pesquisar" value="Pesquisar" />
+                </div>
+
+            </div>
+        </div>
+
+
+    }
+
+</div>
+

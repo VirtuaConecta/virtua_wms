@@ -1,0 +1,35 @@
+﻿@model IEnumerable<FileInfo>
+
+@{
+    ViewBag.Title = "Wms - Pedidos";
+    Layout = "~/Views/Shared/__LayoutWms.cshtml";
+    var aux = Model;
+}
+
+
+
+<h2>Lista Arquivos EDI</h2>
+@Html.Partial("_PartialListaArquivos",Model)
+@*<partial nome="_PartialListaArquivos" model=" @Model" />*@
+@section MeusScripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#PedList').DataTable({
+
+                paging: true,
+                "aoColumns": [
+                    { sWidth: '200px' },
+                    { sWidth: '30px' },
+                    { sWidth: '100px' },
+                    { sWidth: '30px' },
+                    { sWidth: '80px' }
+                ]
+            });
+
+        });
+
+    </script>
+
+}

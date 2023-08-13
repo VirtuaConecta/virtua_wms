@@ -1,0 +1,50 @@
+﻿@model IEnumerable<EstoqueViewModel>
+
+  <div class="block-flat">
+
+    <table id="TabelaEstoque" class="tabelaFormato1">
+
+        <thead>
+
+            <tr>
+                <th></th>
+                <th>Id</th>
+                <th>Data Ordem</th>
+                <th>Nr Documento</th>
+                <th>Cliente</th>
+                <th>Cod Produto</th>
+                <th>Sku</th>
+                <th>Descrição
+                 <th>Qtd Ped</th>
+                 <th>Qtd Entrada</th>
+                 <th>Lote</th>
+                 <th>Posicao</th>
+                 <th>Validade</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td id="linhaClick" class="pm details-control"></td>
+                    <td>@item.id </td>
+
+                    <td>@Html.DisplayFor(x => item.Data_ordem)</td>
+                    <td>@item.Nr_nf</td>
+                    <td>@item.Nome_cli</td>
+                    <td>@item.Id_produto</td>
+                    <td>@item.Sku</td>
+                     <td>@item.Descricao</td>
+                    <td>@item.Qtd_ped</td>
+                     <td>@item.Qtd_entrada</td>
+                    <td>@item.Lote</td>
+                     <td>@item.Posicao</td>
+                    <td>@item.Validade</td>
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+ </div>

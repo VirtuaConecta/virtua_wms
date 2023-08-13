@@ -1,0 +1,102 @@
+﻿@model OCargaViewModel
+<style>
+	.Labelf {
+		color: black;
+		font-family: Arial;
+		font-size: 11px;
+		padding-left: 0px;
+		padding-bottom: -5px;
+		padding-top: -1px;
+		padding-right: 0px;
+	}
+</style>
+<div class="col-sm-12 col-md-12">
+	<div class="block-flat">
+
+		@using (Html.BeginForm())
+		{
+	  <div class="form-horizontal" id="FormCriar">
+
+				@Html.ValidationMessage("Hacker")
+				@Html.ValidationSummary(true)
+
+				@* Linha 1 ---------------------------------------------------------------------------------------------------------------- *@
+
+	   <div class="form-group">
+
+					@Html.LabelFor(x => x.Id_transportadora, new { @Class = " col-sm-2 Labelf" })
+
+					<div class="col-sm-3">
+									@Html.DropDownListFor(x => x.Id_transportadora, Model.Lista_transportadora, "", new { @Class = "form-control input-sm " })
+									@Html.ValidationMessageFor(x => x.Id_transportadora)</div>
+
+								@Html.LabelFor(x => x.Nr_coleta, new { @Class = "  col-sm-1 Labelf" })
+
+					<div class="col-sm-2">
+									@Html.TextBoxFor(x => x.Nr_coleta, new { @Class = "form-control input-sm " })</div>
+								 
+								@Html.LabelFor(x => x.Id_ord_carga, new { @Class = " col-sm-1 Labelf" })
+
+					<div class="col-sm-2">
+								@Html.TextBoxFor(x => x.Id_ord_carga, new { @Class = "form-control input-sm " })</div> 
+						
+						
+						</div>
+
+				@* Linha 2 ---------------------------------------------------------------------------------------------------------------- *@
+
+					<div class="form-group">
+			
+						    @Html.LabelFor(x => x.Tipo_veiculo, new { @Class = " col-sm-1 Labelf" })
+							<div class="col-sm-2">
+							@Html.DropDownListFor(x => x.Tipo_veiculo, Model.Lista_tipo_veiculo, "", new { @Class = "form-control input-sm Labelf" })
+							@Html.ValidationMessageFor(x => x.Tipo_veiculo)</div>
+
+							@Html.LabelFor(x => x.Tipo_carga, new { @Class = " col-sm-1 Labelf" })
+							<div class="col-sm-1">
+
+								@Html.DropDownListFor(x => x.Tipo_carga, Model.Lista_tipo_carga, "", new { @Class = "form-control input-sm Labelf" })
+											@Html.ValidationMessageFor(x => x.Tipo_carga)</div>
+
+
+							@Html.LabelFor(x => x.Dt_agenda, new { @Class = "col-sm-1 Labelf" })
+
+							<div class="col-sm-2">
+								@Html.TextBoxFor(x => x.Dt_agenda, new { @Class = "form-control input-sm  datepicker " })
+											@Html.ValidationMessageFor(x => x.Dt_agenda)</div>
+
+							@Html.LabelFor(x => x.Hora_agenda, new { @Class = "col-sm-1 Labelf" })
+
+							<div class="col-sm-1">
+								@Html.TextBoxFor(x => x.Hora_agenda, new { @Class = "form-control input-sm " })
+											@Html.ValidationMessageFor(x => x.Hora_agenda)</div>
+
+							@Html.LabelFor(x => x.Stat_evento, new { @Class = "col-sm-1 Labelf" })
+
+							<div class="col-sm-1">
+								@Html.DropDownListFor(x => x.Stat_evento, Model.Lista_status_oc, "", new { @Class = "form-control input-sm Labelf" })
+										@Html.ValidationMessageFor(x => x.Stat_evento)</div>  </div>
+
+
+				@* Linha Botões ---------------------------------------------------------------------------------------------------------------- *@
+
+
+			   <div class="form-group">
+				<div class="col-sm-offset-2 col-sm-12">
+				 <div class="col-sm-1">
+				  <input class="btn btn-success" type="submit" name="salvar" id="salvar" value="Salvar" />
+				 </div>
+				 <div class="col-sm-1">
+				  <input class="btn btn-danger" type="reset" name="limpar" id="limpar" value="Limpar" />
+				 </div>
+				 <div class="col-sm-1">
+				  <input type="button" value="Voltar" class="btn btn-controls" onclick="history.go(-1)">
+				 </div>
+				</div>
+			   </div>
+
+	  </div>
+		}
+
+ </div>
+</div>

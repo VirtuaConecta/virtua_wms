@@ -1,0 +1,100 @@
+﻿@model PesquisaClienteViewModel
+
+
+
+
+
+<div class="col-sm-12 col-md-12 block-flat">
+
+
+
+    @using (Html.BeginForm())
+    {
+
+        <div class="form-group">
+
+
+
+            <label class="col-sm-1 Labelf">Data Inicial:</label>
+
+
+            <div class="col-sm-2 form-control input-sm   Labelf" style="width:auto ; border:none;">
+                @Html.TextBoxFor(x => x.Dt_ini, Model.Dt_ini, new { @class = " datepicker", autocomplete = "off" })
+            </div>
+
+            <label class="col-sm-1 Labelf">Data Final:</label>
+
+            <div class="col-sm-2 form-control input-sm   Labelf" style="width:auto ; border:none;">
+                @Html.TextBoxFor(x => x.Dt_fim, Model.Dt_fim, new { @class = " datepicker", autocomplete = "off" })
+            </div>
+
+
+            <label class="col-sm-1 ">Cliente:</label>
+
+            <div class="col-sm-2">
+
+                @Html.DropDownListFor(x => x.Id_cliente, Model.ListaCliente, "Selecione..", new { @Class = "form-control", @readonly = "readonly" })
+
+
+            </div>
+
+
+        </div>
+
+        <br />
+        <br />
+
+        <br />
+        <br />
+
+        <br />
+        @if (!String.IsNullOrWhiteSpace(Model.Erro))
+        {
+            <label style="color:red;font-size:small;">@Model.Erro</label>
+        }
+        <div class="form-group">
+            <div class="col-sm-offset-11">
+                <div>
+                    <input class="btn btn-success" type="submit" name="Pesquisar" id="pesqisar" value="Pesquisar" />
+                </div>
+
+            </div>
+        </div>
+
+
+
+    }
+
+</div>
+
+@section MeusScripts{
+    <script type="text/javascript">
+            $(".datepicker").datepicker(
+                {
+                    dateFormat: 'yy-mm-dd',
+                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    nextText: 'Próximo',
+                    prevText: 'Anterior',
+
+                    timeOnlyTitle: 'Tempo',
+                    timeText: 'Tempo',
+                    hourText: 'Hora',
+                    minuteText: 'Minuto',
+                    secondText: 'Segundo',
+                    currentText: 'Agora',
+                    closeText: 'Fechar',
+
+
+                    timeFormat: 'HH:mm:ss',
+                    pickerTimeFormat: 'HH:mm:ss',
+
+                    separator: ' '
+
+
+                });
+    </script>
+}

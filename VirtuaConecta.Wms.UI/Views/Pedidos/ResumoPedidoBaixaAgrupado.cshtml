@@ -1,0 +1,88 @@
+﻿@model IEnumerable<EstoqueViewModel>
+ @{
+	ViewBag.Title =  "";
+	Layout = "~/Views/Shared/__LayoutWms.cshtml";
+}
+@section MeusStyles
+{
+<link href="~/assets/css/tabela_local.css" rel="stylesheet" />
+
+<style>
+	.pm {
+		cursor: pointer;
+	}
+
+	.detail {
+		background-color: #d4d0d8;
+		padding: 7px;
+	}
+
+	.texto {
+		height: 18px;
+		width: 60px
+	}
+
+	td.details-control {
+		background: url('../../assets/img/details_open.png') no-repeat center center;
+		cursor: pointer;
+	}
+
+	tr.shown td.details-control {
+		background: url('../../assets/img/details_close.png') no-repeat center center;
+	}
+</style>
+}
+<h2>Wms- Resumo de Baixa</h2>
+<h3 id="NrPedidos">Pedidos: @ViewBag.Pedidos</h3>
+<div class="block-flat">
+ <table id="Tabela1" class="tabelaFormato1">
+
+  <thead>
+
+   <tr>
+	
+	<th>Id</th>
+	<th>Sku</th>
+	<th>Descrição</th>
+	<th>Validade</th>
+	<th>Lote</th>
+	<th>Posicao</th>
+	<th>Qtd Baixa</th>
+   </tr>
+
+  </thead>
+
+  <tbody>
+			@foreach (var Pedido in Model)
+			{
+	   <tr>
+
+		
+		<td>@Pedido.id</td>
+		<td>@Pedido.Sku</td>
+		<td>@Html.DisplayFor(x => Pedido.Descricao)</td>
+		<td>@Pedido.Validade </td>
+		<td>@Pedido.Lote </td>
+		<td>@Pedido.Posicao</td>
+		<td>@Pedido.Qtd_baixar</td>
+		
+	   </tr>
+			}
+  </tbody>
+ </table>
+ <br />
+ <div>
+	  <button id="btn_baixar"  type="button" class="btn btn-success" onclick="location.href='@Url.Action("BaixarPedidosSaida", "Pedidos")'" >Baixar pedido <i class="fa fa-tasks"></i> </button>
+
+ </div>
+
+</div>
+
+
+
+@section MeusScripts{
+<script>
+	
+
+</Script>
+}

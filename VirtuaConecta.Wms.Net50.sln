@@ -1,0 +1,106 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30914.41
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtuaConecta.Wms.UI", "VirtuaConecta.Wms.UI\VirtuaConecta.Wms.UI.csproj", "{29DA282C-8F16-4E70-AC68-6F0B5B2A367A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Virtua.Utilities", "Virtua.Utilities\Virtua.Utilities.csproj", "{2158B8C6-3227-49C2-B8B5-1C4125EAD260}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Camada de Regras de Negocio(BLL)", "Camada de Regras de Negocio(BLL)", "{154328AE-25FF-4DB8-A04F-56CE8499B160}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtuaBusiness", "VirtuaBusiness\VirtuaBusiness.csproj", "{7C48C158-2760-4B57-BF67-2FA65B0B872A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Camada de Armazenamento de Dados(DTO)", "Camada de Armazenamento de Dados(DTO)", "{21FD1D91-4B7A-4D33-ACE3-9DEC26F6EE22}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtuaDTO", "VirtuaDTO\VirtuaDTO.csproj", "{A01661B8-5B5D-43A1-8EF8-5E22FFFA4B47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Camada de Acesso a Dados(DAL)", "Camada de Acesso a Dados(DAL)", "{F6E9BB5C-9208-408E-8436-C3CADC1B810C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtuaRepository", "VirtuaRepository\VirtuaRepository.csproj", "{03056754-D807-4CC5-8146-C51D4B7C4B72}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdiDocument", "EdiDocument\EdiDocument.csproj", "{77FC3D05-F6AD-40BC-BE13-EF1519D12483}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XMLdoc", "XMLdoc\XMLdoc.csproj", "{48D8E60C-4FA2-4D5A-8034-38F10E6F2329}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29DA282C-8F16-4E70-AC68-6F0B5B2A367A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29DA282C-8F16-4E70-AC68-6F0B5B2A367A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29DA282C-8F16-4E70-AC68-6F0B5B2A367A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29DA282C-8F16-4E70-AC68-6F0B5B2A367A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2158B8C6-3227-49C2-B8B5-1C4125EAD260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2158B8C6-3227-49C2-B8B5-1C4125EAD260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2158B8C6-3227-49C2-B8B5-1C4125EAD260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2158B8C6-3227-49C2-B8B5-1C4125EAD260}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C48C158-2760-4B57-BF67-2FA65B0B872A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C48C158-2760-4B57-BF67-2FA65B0B872A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C48C158-2760-4B57-BF67-2FA65B0B872A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C48C158-2760-4B57-BF67-2FA65B0B872A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A01661B8-5B5D-43A1-8EF8-5E22FFFA4B47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A01661B8-5B5D-43A1-8EF8-5E22FFFA4B47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A01661B8-5B5D-43A1-8EF8-5E22FFFA4B47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A01661B8-5B5D-43A1-8EF8-5E22FFFA4B47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03056754-D807-4CC5-8146-C51D4B7C4B72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03056754-D807-4CC5-8146-C51D4B7C4B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03056754-D807-4CC5-8146-C51D4B7C4B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03056754-D807-4CC5-8146-C51D4B7C4B72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77FC3D05-F6AD-40BC-BE13-EF1519D12483}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77FC3D05-F6AD-40BC-BE13-EF1519D12483}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77FC3D05-F6AD-40BC-BE13-EF1519D12483}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77FC3D05-F6AD-40BC-BE13-EF1519D12483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48D8E60C-4FA2-4D5A-8034-38F10E6F2329}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48D8E60C-4FA2-4D5A-8034-38F10E6F2329}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48D8E60C-4FA2-4D5A-8034-38F10E6F2329}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48D8E60C-4FA2-4D5A-8034-38F10E6F2329}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7C48C158-2760-4B57-BF67-2FA65B0B872A} = {154328AE-25FF-4DB8-A04F-56CE8499B160}
+		{A01661B8-5B5D-43A1-8EF8-5E22FFFA4B47} = {21FD1D91-4B7A-4D33-ACE3-9DEC26F6EE22}
+		{03056754-D807-4CC5-8146-C51D4B7C4B72} = {F6E9BB5C-9208-408E-8436-C3CADC1B810C}
+		{77FC3D05-F6AD-40BC-BE13-EF1519D12483} = {154328AE-25FF-4DB8-A04F-56CE8499B160}
+		{48D8E60C-4FA2-4D5A-8034-38F10E6F2329} = {154328AE-25FF-4DB8-A04F-56CE8499B160}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8586F7BF-3608-4566-90A2-3B9B98E142E4}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/virtuaconectavirtua
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = VirtuaConecta.Wms.UI\\VirtuaConecta.Wms.UI.csproj
+		SccProjectName1 = VirtuaConecta.Wms.UI
+		SccLocalPath1 = VirtuaConecta.Wms.UI
+		SccProjectUniqueName2 = Virtua.Utilities\\Virtua.Utilities.csproj
+		SccProjectName2 = Virtua.Utilities
+		SccLocalPath2 = Virtua.Utilities
+		SccProjectUniqueName3 = VirtuaBusiness\\VirtuaBusiness.csproj
+		SccProjectTopLevelParentUniqueName3 = VirtuaConecta.Wms.Net50.sln
+		SccProjectName3 = VirtuaBusiness
+		SccLocalPath3 = VirtuaBusiness
+		SccProjectUniqueName4 = VirtuaDTO\\VirtuaDTO.csproj
+		SccProjectTopLevelParentUniqueName4 = VirtuaConecta.Wms.Net50.sln
+		SccProjectName4 = VirtuaDTO
+		SccLocalPath4 = VirtuaDTO
+		SccProjectUniqueName5 = VirtuaRepository\\VirtuaRepository.csproj
+		SccProjectTopLevelParentUniqueName5 = VirtuaConecta.Wms.Net50.sln
+		SccProjectName5 = VirtuaRepository
+		SccLocalPath5 = VirtuaRepository
+		SccProjectUniqueName6 = EdiDocument\\EdiDocument.csproj
+		SccProjectTopLevelParentUniqueName6 = VirtuaConecta.Wms.Net50.sln
+		SccProjectName6 = EdiDocument
+		SccLocalPath6 = EdiDocument
+		SccProjectUniqueName7 = XMLdoc\\XMLdoc.csproj
+		SccProjectTopLevelParentUniqueName7 = VirtuaConecta.Wms.Net50.sln
+		SccProjectName7 = XMLdoc
+		SccLocalPath7 = XMLdoc
+	EndGlobalSection
+EndGlobal

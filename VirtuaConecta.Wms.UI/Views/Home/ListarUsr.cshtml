@@ -1,0 +1,89 @@
+﻿@model IEnumerable<UsuarioViewModel>
+
+@{
+    ViewBag.Title = "Financeiro - Usuário";
+    Layout = "~/Views/Shared/_LayoutFin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="block-flat">
+            <div>
+                <div class="form-group">
+                    <div class="col-sm-11">
+                        <h3 class="header" style="color:black;font-weight:400">Cadastro de Usuários</h3>
+                    </div>
+                    <div class="col-sm-1">
+
+                        <a href="/Adm/Usuario/CadastrarUsr/">
+                            <span class="glyphicon glyphicon-plus-sign" style="font-size:20px"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <div>
+                        <table id="TesteTb" class="table table-bordered">
+                            <thead>
+                                <tr class="cabecalhoTabela">
+                                    <th>Id</th>
+                                    <th>Nome Usuário</th>
+                                    <th>Login</th>
+                                    <th>Área</th>
+                                    <th>Cargo</th>
+                                    <th>Cpf</th>
+                                    <th>Bloqueado</th>
+                                    <th>Selec</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var Usuario in Model)
+                                {
+
+
+                                    <tr class="odd gradeX" data-codigo="@Usuario.Codigo">
+                                        <td><a href="xxxxxxxx">@Usuario.Codigo</a></td>
+                                        <td>@Usuario.NomeUsuario</td>
+                                        <td>@Usuario.Login</td>
+                                        <td>@Usuario.Area</td>
+                                        <td>@Usuario.Cargo</td>
+                                        <td>@Usuario.Cpf</td>
+                                        <td>@Usuario.Bloqueado</td>
+                                        <td>
+                                            <a href="/Adm/Usuario/EditarUsr/@Usuario.Codigo">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </a>
+
+                                            <a href="/Adm/Usuario/ExcluirUsr/@Usuario.Codigo">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </a>
+
+                                        </td>
+                                    </tr>
+
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section MeusScripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#TesteTb').DataTable({
+
+                paging: true
+            });
+        });
+    </script>
+
+}

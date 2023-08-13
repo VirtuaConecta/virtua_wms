@@ -1,0 +1,40 @@
+﻿@model IEnumerable<EstoqueViewModel>
+@{
+    Layout = null;
+}
+
+  <link href="~/assets/css/tabela_local.css" rel="stylesheet" />
+
+<table id="tab_item" class="tabelaFormato1"  cellpadding="4" cellspacing="0" border="0" style="padding-left:50px;">
+    <tr>
+        <th>Id</th>
+        <th>Sku</th>
+        <th>Descrição</th>
+        <th>Saldo</th>
+        <th>P Unit</th>
+        <th>Lote</th>
+        <th>Validade</th>
+        <th>Posicao</th>
+        <th>Qtd a baixar</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>@item.id</td>
+            <td>@item.Sku</td>
+            <td>@item.Descricao</td>
+            <td>@item.Saldo</td>
+            <td>@item.P_unit</td>
+            <td>@item.Lote</td>
+            <td>@item.Validade</td>
+            <td>@item.Posicao</td>
+            <td><input type="text" id='@item.id' name="@item.id" class="texto"  /></td>
+        </tr>
+
+    }
+</table>
+<script>
+
+
+            </script>

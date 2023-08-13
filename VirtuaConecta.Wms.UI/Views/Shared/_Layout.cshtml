@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema WMS VirtuaCnecta">
+    <meta name="author" content="VirtuaConecta">
+    @*<link rel="shortcut icon" href="~/img/favicon_v.png">*@
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />;
+    <title>@ViewBag.Title</title>
+
+    <link href="~/assets/fonts.googleapis.com/css8b0d.css" rel="stylesheet" />
+    <link href="~/assets/fonts.googleapis.com/csse05c.css" rel="stylesheet" />
+    <link href="~/assets/fonts.googleapis.com/cssfc90.css" rel="stylesheet" />
+
+    <link href="~/assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/assets//lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!--if lt IE 9script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')-->
+
+    <link href="~/assets/lib/jquery.nanoscroller/css/nanoscroller.css" rel="stylesheet" />
+
+    @* <link href="~/css/site.css" rel="stylesheet" />*@
+
+    <link href="~/assets/css/style.css" rel="stylesheet" />
+
+</head>
+
+@* Aqui a Classe texture (Arquivo Style.css) não encontra o caminho da Imagem de backgroud coloque um style com o caminho fisico*@
+<body class="texture">
+
+    <div id="cl-wrapper" class="login-container">
+        <div class="middle-login">
+            <div class="block-flat">
+                <div>
+
+                    @RenderBody()
+
+                </div>
+
+            </div>
+
+            <div class="text-center out-links">
+                <a href="#">© @DateTime.Now.Year VirtuaConecta</a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript" src="~/assets/lib/jquery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="~/assets/lib/jquery.nanoscroller/javascripts/jquery.nanoscroller.js"></script>
+    <script type="text/javascript" src="~/assets/js/cleanzone.js"></script>
+    <script src="~/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //initialize the javascript
+            App.init();
+        });
+    </script>
+
+
+</body>
+
+</html>

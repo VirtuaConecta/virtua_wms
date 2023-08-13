@@ -1,0 +1,169 @@
+﻿@model PedidosEntradaSaidaViewModel
+
+@{
+    ViewBag.Title = "Lista nota fiscal";
+    Layout = "~/Views/Shared/__LayoutWms.cshtml";
+}
+
+@section MeusStyles
+{
+    <link href="~/assets/css/tabela_local.css" rel="stylesheet" />
+   
+    <style>
+        .pm {
+            cursor: pointer;
+        }
+
+        .detail {
+            background-color: #d4d0d8;
+            padding: 7px;
+        }
+
+        td.details-control {
+            background: url('../../assets/img/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+       .excel {
+            background: url('../../assets/img/excel_icon.png') no-repeat center center;
+            cursor: pointer;
+        }
+        tr.shown td.details-control {
+            background: url('../../assets/img/details_close.png') no-repeat center center;
+        }
+    </style>
+}
+<div class="col-sm-12 col-md-12">
+    <div class="form-group">
+        <h2 class="col-sm-11 ">Nota Fiscal</h2>
+       @* <input class="col-sm-1 pm excel" style="height: 64px;width:64px;border:none" type="button" id="btnExport" />*@
+        
+    
+
+        <button class="btn btn-default excel details" style="height: 64px;width:64px;border:none;"></button>
+    </div>
+
+
+    <div class="block-flat">
+       
+            <table id="TabelaPed" class="tabelaFormato1">
+                <thead>
+                    <tr>
+                        <th></th>
+
+                        <th>Nf Pelog</th>
+                        <th>Destinatario</th>
+                        <th>Sku</th>
+                        <th>Descrição</th>
+                        <th>Qtd</th>
+                        <th>Dt fecha OC</th>
+                        <th>Dt emissão</th>
+                        <th>Dt saida</th>
+                        <th>Nf Cliente</th>
+                        <th>Ordem carga</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var pedido in Model.ListaPedidos)
+                    {
+                        <tr>
+
+                            <td id="linhaClick" class="pm details-control"></td>
+
+                            <td>@pedido.nf_pelog</td>
+                            <td>@pedido.nome_cli</td>
+                            <td>@pedido.sku</td>
+                            <td>@pedido.descricao</td>
+                            <td>@pedido.qtd</td>
+                            <td>@Html.DisplayFor(x => pedido.dt_processado)</td>
+                            <td>@Html.DisplayFor(x => pedido.data_emissao)</td>
+                            <td>@Html.DisplayFor(x => pedido.data_fim)</td>
+                            <td>@pedido.N_fiscal</td>
+                            <td>@pedido.ord_carga</td>
+
+                        </tr>
+
+                    }
+
+                </tbody>
+            </table>
+      
+        <div class="modal" id="modal">
+          
+         </div>
+
+    </div>
+
+</div>
+            @section MeusScripts{
+                <script type="text/javascript">
+
+
+
+                    $(document).ready(function () {
+
+                        var tabela = $('#TabelaPed').DataTable({
+
+                            paging: true
+
+                        });
+
+
+                        //Evento de adição par abrir e fechar as linas filhas
+                        $('#TabelaPed tbody').on('click', 'td.details-control', function () {
+                            var oTr = $(this).parent('tr');
+
+                            var Linha = tabela.row(oTr);
+
+                            if (Linha.child.isShown()) {
+                                // Se a janela das linhas filhas estiver aberta - fechar
+                                Linha.child.hide();
+                                //Mostra a imagem Do Head(+)
+                                oTr.removeClass('shown');
+                            }
+                            else {
+                                //Abra esta linha
+                                // Aqui abre a função que vai buscar o dado da linha filha
+
+                                var id = oTr.find("td:eq(9)").html()
+
+                                $.get("detalheNf?ID=" + id, function (itens) {
+
+
+                                    Linha.child(itens).show();
+
+                                });
+                                //Mostra a imagem do detalhe(-)
+                                oTr.addClass('shown');
+                            }
+                        });
+
+
+                        //$("#btnExport").click(function (e) {
+                        //    //$.get("ExportarExcel");
+
+                        //    e.preventDefault();
+                        //    var table_div = document.getElementById('TabelaPed');
+                        //    // esse "\ufeff" é importante para manter os acentos         
+                        //    var blobData = new Blob(['\ufeff' + table_div.outerHTML], { type: 'application/vnd.ms-excel' });
+                        //    var url = window.URL.createObjectURL(blobData);
+                        //    var a = document.createElement('a');
+                        //    a.href = url;
+                        //    a.download = 'Meu arquivo Excel'
+                        //    a.click();
+
+                        //});
+
+                             $(function () {
+                                            $(".details").click(function () {
+              
+                                                $("#modal").load("ExportarExcel", function () {
+                                                    $("#modal").modal(); })
+                                            });
+                                        });
+
+                    });
+
+
+                </script>
+            }

@@ -1,0 +1,53 @@
+﻿   
+@{ ViewBag.Title = "Financeiro - Usuário";
+    Layout = "~/Views/Shared/_LayoutFin.cshtml";
+
+}
+
+<h2>Cadastrar Usuário</h2>
+
+@*<partial name="_PartiaLUsuario"  />*@
+
+@section MeusScripts{
+    <script>
+        $("#Cpf").mask("999.999.999-99");
+        $("#Telefone").mask("(99)99999-9999");
+
+        $("#limpar").click(function () {
+
+            //Quando o jquery exibe uma mensagem de erro ele coloca
+            //A classe CSS Field-Validation-Error, se você quiser
+            //Pegar todas as mensagens de uma única vez capturar
+            //Pelo nome da classe CSS
+            //No JQUERY
+            //Pra buscar algum campo por ID colocar #
+            //Pra buscar algum campo pela CLASSE CSS colocar .
+            $(".field-validation-error").empty();
+
+            //Após remover as mensagens de erro, levamos o cursor
+            //Pra dentro do campo NOME
+            $("#Login").focus();
+
+        });
+
+
+
+
+    </script>
+}
+@section MeusStyles{
+    <style>
+        /*Customizamos as mensagens de erro do MVC este nome de classe e padrão para msg de erro*/
+        .field-validation-error {
+            color: red;
+            font-size: 9px;
+            font-weight: bold;
+            font-family: Verdana;
+            background-image: url('../../wwwroot/assets/img/erro.png');
+            background-repeat: no-repeat;
+            padding-left: 18px;
+            /*Com CSS3 mandamos a imagem se auto redimensionar*/
+            background-size: contain;
+        }
+    </style>
+}

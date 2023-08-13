@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "Wms - Saida Pedidos";
+    Layout = "~/Views/Shared/__LayoutWms.cshtml";
+}
+@section MeusStyles
+{
+      <link href="~/assets/css/tabela_local.css" rel="stylesheet" />
+
+    <style>
+        .pm {
+            cursor: pointer;
+        }
+
+        .detail {
+            background-color: #d4d0d8;
+            padding: 7px;
+        }
+
+        td.details-control {
+           
+             background: url('../../assets/img/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+
+        tr.shown td.details-control {
+             background: url('../../assets/img/details_close.png') no-repeat center center;
+        }
+    </style>
+}
+<h2>Tipo Remessa: @ViewBag.Remessa</h2>
+@Html.Partial("_PartialListaPedidosAprocessar")
+
+
+<div><input type="button" name="Submit242" value="Gerar lista de baixa" onClick="GetSelected()"  /></div>
+
+@section MeusScripts{
+    <script>
+
+          $(document).ready(function () {
+
+            var tabela = $('#TabelaPed').DataTable({
+
+                paging: true
+            });
+
+
+            //Evento de adição par abrir e fechar as linas filhas
+            $('#TabelaPed tbody').on('click', 'td.details-control', function () {
+                var oTr = $(this).closest('tr');
+                var Linha = tabela.row(oTr);
+
+                if (Linha.child.isShown()) {
+                    // Se a janela das linhas filhas estiver aberta - fechar
+                    Linha.child.hide();
+                    //Mostra a imagem Do Head(+)
+                    oTr.removeClass('shown');
+                }
+                else {
+                    //Abra esta linha
+                    // Aqui abre a função que vai buscar o dado da linha filha
+
+                    var id = oTr.find("td:eq(1)").html()
+
+                    $.get('@Url.Action("ListaItensPedidoPend", "Pedidos")', { ID: id }, function (itens) {
+
+                        Linha.child(itens).show();
+
+                    });
+          //Mostra a imagem do detalhe(-)
+                    oTr.addClass('shown');
+                }
+            });
+
+
+
+
+        });
+
+       function GetSelected() {
+        //Reference the Table.
+        var grid = document.getElementById("TabelaPed");
+        
+ 
+ 
+        //Reference the CheckBoxes in Table.
+        var checkBoxes = grid.getElementsByTagName("INPUT");
+        var pedidos = "";
+        var contar=0;
+        //Loop through the CheckBoxes.
+        for (var i = 0; i < checkBoxes.length; i++) {
+            if (checkBoxes[i].checked) {
+                if(contar>0){
+                pedidos += ",";
+                }
+                var row = checkBoxes[i].parentNode.parentNode;
+                pedidos += row.cells[1].innerHTML;
+               contar++;
+            }
+        }
+        if (pedidos == ""){
+        
+           alert('Não há checkBoxes selecionados');
+		}else{
+		
+		 // $.post('@Url.Action("GeraListadeBaixa", "Pedidos")', { ID: pedidos });
+
+            
+                    var url = '@Url.Action("ListadeBaixaAgrupada", "Pedidos")?ID='+pedidos;
+                    window.location.href = url; 
+
+		}
+    }
+
+    </script>
+}

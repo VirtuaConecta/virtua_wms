@@ -1,0 +1,372 @@
+﻿@model Pedido1ViewModel
+<style>
+	.Labelf {
+		color: black;
+		font-family: Arial;
+		font-size: 11px;
+		padding-left: 0px;
+		padding-bottom: -5px;
+		padding-top: -1px;
+		padding-right: 0px;
+	}
+		.Labeld {
+		color: black;
+		font-family: Arial;
+		font-size: 11px;
+		padding-left: 0px;
+		padding-bottom: -5px;
+		padding-top: -1px;
+		padding-right: 0px;
+	}
+	
+        .tituloItens {
+            color: black;
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            border: solid;
+        }
+		       .textoNome {
+            color: black;
+            font-size: 13px;
+            font-weight: bold;
+        }
+</style>
+
+
+
+
+
+<form method="post">
+	<div class="row wizard-row">
+		<div class="col-md-12 fuelux">
+			<div class="block-wizard">
+				<div id="wizard1" class="wizard wizard-ux">
+					<ul class="steps">
+						<li data-step="1" class="active">Dados Gerais<span class="chevron"></span></li>
+						<li data-step="2">Produtos<span class="chevron"></span></li></ul>
+					<div class="actions">
+						<button type="button" class="btn btn-xs btn-prev btn-default"><i class="fa fa-chevron-left"></i>Anterior</button>
+						<button type="button" data-last="Fim" class="btn btn-xs btn-next btn-default"  disabled="disabled">Próximo<i class="fa fa-chevron-right"></i></button></div>
+					<div class="step-content">
+						<div data-step="1" class="step-pane active">
+							@*  Página 1 ======================================================================================= *@
+								@* Linha 1 ---------------------------------------------------------------------------------------------------------------- *@
+								<div class="form-group">
+									@Html.LabelFor(x => x.Nr_doc_origem, new { @Class = " col-sm-1 Labelf" })
+									<div class="col-sm-1">
+										@Html.TextBoxFor(x => x.Nr_doc_origem, new { @Class = "form-control input-sm " })
+										@*   @Html.TexboxVal("form-control input-sm Labelf", "text", x => x.Nr_documento, "change")*@
+										@Html.ValidationMessageFor(x => x.Nr_documento)
+									</div>
+
+									@Html.LabelFor(x => x.Serie_doc, new { @Class = "  col-sm-1 Labelf" })
+									<div class="col-sm-1">
+										@Html.TextBoxFor(x => x.Serie_doc, new { @Class = "form-control input-sm " })
+										@Html.ValidationMessageFor(x => x.Serie_doc)
+									</div>
+
+									@Html.LabelFor(x => x.tipo_doc, new { @Class = " col-sm-1 Labelf" })
+									<div class="col-sm-2">
+
+										@Html.DropDownListFor(x => x.tipo_doc, Model.Lista_tipo_doc, "", new { @Class = "form-control input-sm " })
+
+										@Html.ValidationMessageFor(x => x.tipo_doc)
+									</div>
+
+									@Html.LabelFor(x => x.Remessa, new { @Class = " col-sm-1 Labelf" })
+									<div class="col-sm-1">
+										@*@Html.DropDownListFor(x => x.Remessa, Model.Lista_remessa, "", new { @Class = "form-control input-sm ", @readonly = "readonly" })*@
+
+										@if (ViewBag.remessa == "I")
+										{
+											@Html.Label("ENTRADA")
+
+										}
+										else
+										{
+											@Html.Label("SAIDA")
+
+										}
+
+
+										@*		@Html.TextBoxFor(x => x.Remessa, new { @Class = "form-control input-sm ", @readonly = "readonly" })
+											@Html.ValidationMessageFor(x => x.Remessa)
+											@Html.ValidationMessage("Remessa")*@
+									</div>
+									@Html.LabelFor(x => x.Id_cliente_txt, new { @Class = "col-sm-1 Labelf" })
+									<div class="col-sm-2">
+										@Html.DropDownListFor(x => x.Id_cliente_txt, Model.Lista_Clientes, "", new { @Class = "form-control input-sm Labeld" })
+										@Html.ValidationMessageFor(x => x.Id_cliente_txt)
+									</div></div>
+
+								@* Linha 2 ---------------------------------------------------------------------------------------------------------------- *@
+
+								<div class="form-group">
+
+									
+									@Html.LabelFor(x => x.Nome_dest, new { @Class = "col-sm-1 Labelf" })
+
+									<div class="col-sm-2">
+
+										@if (ViewBag.remessa == "I")
+										{
+											@Html.TextBoxFor(x => x.Nome_dest, new { @Class = "form-control input-sm ", @readonly = "readonly" })
+										}
+										else
+										{
+											@Html.TextBoxFor(x => x.Nome_dest, new { @Class = "form-control input-sm " })
+											@Html.ValidationMessageFor(x => x.Nome_dest)
+
+										}
+									</div>
+
+
+									@Html.LabelFor(x => x.Cnpj_dest, new { @Class = "col-sm-1 Labelf" })
+
+									<div class="col-sm-2">
+										@* Caso seja entrada *@
+										@if (ViewBag.remessa == "I")
+										{
+											@Html.TextBoxFor(x => x.Cnpj_dest, new { @Class = "form-control input-sm ", @readonly = "readonly" })
+										}
+										else
+										{
+											@Html.TextBoxFor(x => x.Cnpj_dest, new { @Class = "form-control input-sm " })
+											@Html.ValidationMessageFor(x => x.Cnpj_dest)
+										}
+									</div>
+
+									@Html.LabelFor(x => x.IE_dest, new { @Class = "col-sm-1 Labelf" })
+									<div class="col-sm-2">
+											@if (ViewBag.remessa == "I")
+											{
+												@Html.TextBoxFor(x => x.IE_dest, new { @Class = "form-control input-sm ", @readonly = "readonly" })
+											}
+											else
+											{
+												@Html.TextBoxFor(x => x.IE_dest, new { @Class = "form-control input-sm " })
+												@Html.ValidationMessageFor(x => x.IE_dest)
+											}
+									</div>
+									@Html.LabelFor(x => x.Cfop, new { @Class = "col-sm-1 Labelf" })
+									<div class="col-sm-2">
+
+											@Html.DropDownListFor(x => x.Cfop, Model.Lista_cfop, "", new { @Class = "form-control input-sm " })
+											@Html.ValidationMessageFor(x => x.Cfop)
+									</div></div>
+								@* Linha 3 ---------------------------------------------------------------------------------------------------------------- *@
+
+								<div class="form-group">
+									@Html.LabelFor(x => x.Cep_dest, new { @Class = "col-sm-1 Labelf" })
+									<div class="col-sm-2">
+											@if (ViewBag.remessa == "I")
+											{
+												@Html.TextBoxFor(x => x.Cep_dest, new { @Class = "form-control input-sm ", @readonly = "readonly" })
+											}
+											else
+											{
+												@Html.TextBoxFor(x => x.Cep_dest, new { @Class = "form-control input-sm " })
+												@Html.ValidationMessageFor(x => x.Cep_dest)
+											}
+									</div>
+									@Html.LabelFor(x => x.End_dest, new { @Class = "col-sm-1 Labelf" })
+
+									<div class="col-sm-3">
+											@if (ViewBag.remessa == "I")
+											{
+												@Html.TextBoxFor(x => x.End_dest, new { @Class = "form-control input-sm ", @readonly = "readonly" })
+											}
+											else
+											{
+
+												@Html.TextBoxFor(x => x.End_dest, new { @Class = "form-control input-sm " })
+												@Html.ValidationMessageFor(x => x.End_dest)
+											}
+									</div>
+									@Html.LabelFor(x => x.Nr_destino, new { @Class = "col-sm-1 Labelf" })
+									<div class="col-sm-1">
+										@if (ViewBag.remessa == "I")
+										{
+											@Html.TextBoxFor(x => x.Nr_destino, new { @Class = "form-control input-sm ", @readonly = "readonly" })
+										}
+										else
+										{
+											@Html.TextBoxFor(x => x.Nr_destino, new { @Class = "form-control input-sm " })
+											@Html.ValidationMessageFor(x => x.Nr_destino)
+										}
+									</div>
+									@Html.LabelFor(x => x.Bairro_dest, new { @Class = "col-sm-1 Labelf" })
+									<div class="col-sm-2">
+										@if (ViewBag.remessa == "I")
+										{
+											@Html.TextBoxFor(x => x.Bairro_dest, new { @Class = "form-control input-sm ", @readonly = "readonly" })
+										}
+										else
+										{
+											@Html.TextBoxFor(x => x.Bairro_dest, new { @Class = "form-control input-sm " })
+											@Html.ValidationMessageFor(x => x.Bairro_dest)
+										}
+									</div></div>
+								@* Linha 4 ---------------------------------------------------------------------------------------------------------------- *@
+
+								<div class="form-group">
+									@Html.LabelFor(x => x.Cod_municipio_txt, new { @Class = "col-sm-1 Labelf" })
+
+									<div class="col-sm-2">
+
+										@if (ViewBag.remessa == "I")
+										{
+											@Html.DropDownListFor(x => x.Cod_municipio_txt, Model.Lista_cidade, "", new { @Class = "form-control input-sm Labelf", @readonly = "readonly" })
+										}
+										else
+										{
+											@Html.DropDownListFor(x => x.Cod_municipio_txt, Model.Lista_cidade, "", new { @Class = "form-control input-sm " })
+											@Html.ValidationMessageFor(x => x.Cod_municipio_txt)
+										}
+									</div>
+
+									@Html.LabelFor(x => x.Dt_emissao, new { @Class = "col-sm-1 Labelf" })
+									<div class="col-sm-2">
+										@Html.TextBoxFor(x => x.Dt_emissao_txt, new { @Class = "form-control input-sm  datepicker " })
+										@Html.ValidationMessageFor(x => x.Dt_emissao_txt)
+									</div>
+									@Html.LabelFor(x => x.Peso_brt, new { @Class = "col-sm-1 Labelf" })
+									<div class="col-sm-1">
+										@Html.TextBoxFor(x => x.Peso_brt, new { @Class = "form-control input-sm decimal4 " })
+										
+									</div>
+									@Html.LabelFor(x => x.Peso_liq, new { @Class = "col-sm-1 Labelf" })
+									<div class="col-sm-1">
+										@Html.TextBoxFor(x => x.Peso_liq, new { @Class = "form-control input-sm decimal4" })
+									
+									</div>
+										@Html.LabelFor(x => x.Nr_volumes, new { @Class = "col-sm-1 Labelf" })
+									<div class="col-sm-1">
+										@Html.TextBoxFor(x => x.Nr_volumes, new { @Class = "form-control input-sm inteiros" })
+									
+									</div></div>
+
+
+								@* Linha 5 ---------------------------------------------------------------------------------------------------------------- *@
+
+								<div class="form-group">
+									@Html.LabelFor(x => x.Total_nf, new { @Class = "col-sm-1 Labelf" })
+									<div class="col-sm-2">
+										@Html.TextBoxFor(x => x.Total_nf, new { @Class = "form-control input-sm decimal2" })
+										
+									</div>
+										@Html.LabelFor(x => x.Chave, new { @Class = "col-sm-1 Labelf" })
+									<div class="col-sm-4">
+										@Html.TextBoxFor(x => x.Chave, new { @Class = "form-control input-sm " })
+										@Html.ValidationMessageFor(x => x.Chave)
+									</div>
+
+									<label class="col-sm-1 Labelf">PJ:</label>
+
+									<div class="col-sm-1">
+										@Html.RadioButton("Fis_Jur", "J")
+									</div>
+
+									<label class="col-sm-1 Labelf">PF:</label>
+
+									<div class="col-sm-1">
+										@Html.RadioButton("Fis_Jur", "F")
+										@Html.ValidationMessageFor(x => x.Fis_Jur)
+									</div></div>
+
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										 <button type="button" class="btn btn-success" onclick="validar1(); return false;"><i class="fa fa-check-double"></i></button>
+										 <button id="passo1"  data-wizard="#wizard1" class="btn btn-primary wizard-next"  disabled="disabled" >Próxima etapa <i class="fa fa-caret-right"></i></button>
+									</div></div></div>
+						@* ======================================== FIM PAGINA 1 ================================================ *@
+						<div data-step="2" class="step-pane">
+							@*=================================== pagina 2 ===================================================*@
+							@* Linha 1 ---------------------------------------------------------------------------------------------------------------- *@
+							@* Levamos o numero do registro para fazer a alteração com campo hidden*@
+								<div class="form-group">
+									<div class="col-sm-3">
+										@* Busca o texto que veio pela view bag para o nome do cliente *@
+										@Html.TextBox("dadoscli")
+									</div></div>
+								@* Linha 2 ------------------------------------------------------------------------------------------ *@
+
+								<div class="form-group">
+									<div class="col-sm-12"><h4 class="tituloItens">Itens a Entrar</h4></div></div>
+
+
+								<div class="form-group">
+										<div class="col-sm-1 control-label Labelf">
+											@Html.Label("Sku")
+										</div>
+										<div class="col-sm-4 ">
+											<input class = "form-control" id="Skuac"  name="Sku" type="text" autocomplete="on"/>
+										</div>
+										<div class="col-sm-1 control-label Labelf">
+											@Html.Label("Qtd")
+										</div>
+										<div class="col-sm-2">
+											@Html.TextBoxFor(x => x.Qtd, null, new { @Class = "form-control" })
+										</div>
+										<div class="col-sm-1 control-label Labelf">
+											@Html.Label("Valor")
+										</div>
+										<div class="col-sm-2">
+											@Html.TextBoxFor(x => x.P_unit, null, new { @Class = "form-control" })
+										</div>
+									    <div class="col-sm-1">
+											<button id="btnAdd" type="button" class="btn btn-mini btn-primary" >
+											<i class="fa fa-plus" aria-hidden="true"></i></button></div></div>
+								<br />
+								@* Linha dos Itens-------------------------------------------------------------------------- *@
+								<div class="form-group">
+									<div class="container">
+										<div class="col-sm-12">
+											 <table id="tblProdutos" class="table" cellpadding="0" cellspacing="0">
+												<thead>
+													<tr>
+														<th >Sku</th>
+														<th >Qtd</th>
+														<th>P Unit</th>
+													</tr>
+												</thead>
+												<tbody>
+													
+												</tbody>
+								@*				<tfoot>
+													<tr>
+														<td><input type="text" id="txtName"/></td>
+														<td><input type="text" id="txtCountry"/></td>
+														<td><input type="button" id="btnAdd" value="Add"/></td>
+													</tr>
+												</tfoot>*@
+											</table>
+																					
+												<input class="btn btn-primary" type="button" id="btnSave" value="Adicionar Lista"/>
+											</div>
+										</div>
+									</div>
+							
+								@* =============================================================================================== *@
+								<div class="form-group">
+									<div class="col-sm-12">
+										<button data-wizard="#wizard1" class="btn btn-default wizard-previous"><i class="fa fa-caret-left"></i> Anterior</button>
+									</div></div>
+									@Html.HiddenFor(x=>x.Lista_cidade);
+						<div class="form-group">
+							<div class="col-sm-12">
+								<button id="btnConcluir"class="btn btn-success "  disabled="disabled">Criar Pedido</button>
+							</div></div></div></div>
+				</div>
+			</div>
+	   </div>
+	</div>
+</form>
+<script>
+	
+				
+				
+
+
+</script>

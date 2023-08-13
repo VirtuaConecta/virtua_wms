@@ -1,0 +1,135 @@
+﻿@model List<Ordem_CargaViewModel>
+
+@{
+    ViewBag.Title = "Listaordem de carga";
+    Layout = "~/Views/Shared/__LayoutWms.cshtml";
+    var detalheOS = "";
+}
+
+@section MeusStyles
+{
+    <link href="~/assets/css/tabela_local.css" rel="stylesheet" />
+
+    <style>
+        .pm {
+            cursor: pointer;
+        }
+
+        .detail {
+            background-color: #d4d0d8;
+            padding: 7px;
+        }
+
+        td.details-control {
+            background: url('../../assets/img/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+
+        .excel {
+            background: url('../../assets/img/excel_icon.png') no-repeat center center;
+            cursor: pointer;
+        }
+
+        tr.shown td.details-control {
+            background: url('../../assets/img/details_close.png') no-repeat center center;
+        }
+    </style>
+}
+<div class="col-sm-12 col-md-12">
+    <div class="form-group">
+        <h2 class="col-sm-11 ">Nota Fiscal</h2>
+        @* <input class="col-sm-1 pm excel" style="height: 64px;width:64px;border:none" type="button" id="btnExport" />*@
+
+
+
+        <button class="btn btn-default excel details" style="height: 64px;width:64px;border:none;"></button>
+    </div>
+
+
+    <div class="block-flat">
+
+        <table id="TabelaPed" class="tabelaFormato1">
+            <thead>
+                <tr>
+                    @*<th></th>*@
+
+                    <th>Ord Carga</th>
+                    <th>Transportadora</th>
+                    <th>Motorista</th>
+
+                    <th>Placa</th>
+                    <th>Status OC</th>
+                    <th>Vol OC</th>
+                    <th>Conferente</th>
+                    <th>Notas</th>
+                    <th>Clientes</th>
+                    <th>Destinos</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var ordem in Model)
+                {
+                <tr>
+
+                    @*<td id="linhaClick" class="pm details-control"></td>*@
+
+                    <td>@ordem.id_ord_carga</td>
+                    <td>@ordem.nome_transp</td>
+                    <td>@ordem.motorista</td>
+
+                    <td>@ordem.placas</td>
+                    <td>@ordem.stat_ev</td>
+                    <td>@ordem.volumes</td>
+                    <td>@ordem.conferente</td>
+                    <td>@ordem.notas</td>
+                    <td>@ordem.clientes</td>
+                    <td>@ordem.destinos</td>
+                    @{
+                        detalheOS = "../OCarga/EditarOC?id_os=" + ordem.id_ord_carga;
+                    }
+                        <td ><a href="@detalheOS" ><i class="fa fa-search fa-lg" style="color:gray"></i></a></td>
+
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+
+        <div class="modal" id="modal">
+
+        </div>
+
+    </div>
+
+</div>
+@section MeusScripts{
+    <script type="text/javascript">
+
+
+
+                    $(document).ready(function () {
+
+                        var tabela = $('#TabelaPed').DataTable({
+
+                            paging: true
+
+                        });
+
+
+
+                             $(function () {
+                                            $(".details").click(function () {
+
+                                                $("#modal").load("ExportarExcel_Ordem_Carga", function () {
+                                                    $("#modal").modal(); })
+                                            });
+                                        });
+
+                    });
+
+
+    </script>
+}

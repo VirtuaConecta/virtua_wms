@@ -1,0 +1,525 @@
+﻿@model List<CharsViewModel>
+
+
+@{
+    ViewBag.Title = "Gestão de Logística - Dashboard";
+    ViewBag.NomeTela = "Dashboard";
+    Layout = "~/Views/Shared/__LayoutWms.cshtml";
+
+}
+
+@{
+    int[] total = new int[Model.Count];
+
+    int cont = 0;
+    Decimal[] soma = new Decimal[Model.Count];
+
+    for (int aux2 = 0; aux2 < Model.Count; aux2++)
+    {
+        total[aux2] = Model.ElementAt(aux2).charts.Count();
+        @foreach (var data in Model.ElementAt(aux2).charts)
+        {
+            if (cont > total[aux2] - 3)
+            {
+                cont = 0;
+                break;
+            }
+            var aux = data.Valor;
+            soma[aux2] += aux;
+            cont++;
+        }
+
+    }
+}
+
+@section MeusStyles {
+    <style>
+       pm {
+            cursor: pointer;
+        }
+    </style>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(Liberado);
+        google.charts.setOnLoadCallback(Periodo);
+        google.charts.setOnLoadCallback(Peso);
+        google.charts.setOnLoadCallback(Pedido_pessoa);
+
+        function Liberado() {
+        var data = google.visualization.arrayToDataTable([
+            ['Data', 'Nr Pedidos'],
+
+          @foreach (var data in Model.ElementAt(0).charts)
+          {
+              if (cont > total[0] - 3)
+              {
+                  cont = 0;
+                  break;
+              }
+
+            <text>['@data.Item',@data.Valor],</text>
+              cont++;
+          }
+        ]);
+
+        var options = {
+            title: 'Pedidos Encerrados por dia',
+        //    curveType: 'function',
+            bar: { groupWidth: "85%" },
+           // bars:'horizontal',
+            legend: 'none',
+            colors: ['yellow'],
+            vAxis: { gridlines: { count: 4 } },
+          hAxis:{textStyle:{color: '#ffffff'}},
+            vAxis: { textStyle: { color: '#ffffff' }},
+          width : '100%',
+          height:'100%',
+          chartArea: {  width : '85%', height:'75%'},
+          backgroundColor: { fill:'transparent' },
+          titleTextStyle: {color: '#ffffff'}
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('graf_liberado'));
+          // var chart = new google.visualization.BarChart(document.getElementById("graf_liberado"));
+            //var chart = new google.visualization.LineChart(document.getElementById('graf_liberado'));
+
+            chart.draw(data, options);
+
+        }
+
+        function Periodo() {
+            var data = google.visualization.arrayToDataTable([
+            ['Data', 'Tempo Pedidos'],
+          @foreach (var data in Model.ElementAt(1).charts)
+          {
+              if (cont > total[1] - 3)
+              {
+                  cont = 0;
+                  break;
+              }
+
+            <text>['@data.Item',@data.Valor.ToString().Replace(',','.')],</text>
+              cont++;
+          }
+        ]);
+
+            var options = {
+              title: 'Pedidos periodicos',
+            //  curveType: 'function',
+                bar: { groupWidth: "85%" },
+                legend: 'none',
+              colors : [ 'red'],
+              hAxis:{textStyle:{color: '#ffffff'}},
+              vAxis:{textStyle:{color: '#ffffff'}},
+              width : '100%',
+              height:'100%',
+              chartArea: {  width : '85%', height:'75%'},
+              backgroundColor: { fill:'transparent' },
+              titleTextStyle: {color: '#ffffff'}
+                };
+            var chart = new google.visualization.ColumnChart(document.getElementById('graf_periodo'));
+            //var chart = new google.visualization.LineChart(document.getElementById('graf_periodo'));
+
+            chart.draw(data, options);
+
+        }
+
+          function Peso() {
+            var data = google.visualization.arrayToDataTable([
+            ['Data', 'Peso Pedidos'],
+          @foreach (var data in Model.ElementAt(2).charts)
+          {
+              if (cont > total[2] - 3)
+              {
+                  cont = 0;
+                  break;
+              }
+
+            <text>['@data.Item',@data.Valor.ToString().Replace(',','.')],</text>
+              cont++;
+          }
+        ]);
+
+            var options = {
+              title: 'Pedidos pesos',
+            //  curveType: 'function',
+                bar: { groupWidth: "85%" },
+                legend: 'none',
+              colors : [ 'green'],
+              hAxis:{textStyle:{color: '#ffffff'}},
+              vAxis:{textStyle:{color: '#ffffff'}},
+              width : '100%',
+              height:'100%',
+              chartArea: {  width : '85%', height:'75%'},
+              backgroundColor: { fill:'transparent' },
+              titleTextStyle: {color: '#ffffff'}
+                };
+              var chart = new google.visualization.ColumnChart(document.getElementById('graf_peso'));
+            //var chart = new google.visualization.LineChart(document.getElementById('graf_peso'));
+
+            chart.draw(data, options);
+
+        }
+
+
+        function Pedido_pessoa() {
+        var data = google.visualization.arrayToDataTable([
+            ['Pessoa', 'Nr Pedidos'],
+
+          @foreach (var data in Model.ElementAt(3).charts)
+          {
+              if (cont > total[3] - 3)
+              {
+                  cont = 0;
+                  break;
+              }
+
+            <text>['@data.Item',@data.Valor],</text>
+              cont++;
+          }
+        ]);
+
+        var options = {
+            title: 'Pedidos feito por cada usuário',
+            bar: { groupWidth: "85%" },
+            legend: 'none',
+            colors: ['gray'],
+            vAxis: { gridlines: { count: 4 } },
+          hAxis:{textStyle:{color: '#ffffff'}},
+            vAxis: { textStyle: { color: '#ffffff' }},
+          width : '100%',
+          height:'100%',
+          chartArea: {  width : '85%', height:'75%'},
+          backgroundColor: { fill:'transparent' },
+          titleTextStyle: {color: '#ffffff'}
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('graf_pedido_pessoa'));
+
+            chart.draw(data, options);
+
+        }
+
+    </script>
+}
+
+<div class="stats_bar">
+    @*         <div class="butpro butstyle flat">
+            <div class="sub">
+                <h2>CLIENTS</h2>
+                <span id="total_clientes">170</span>
+            </div>
+            <div class="stat">
+                <span class="spk1">
+                    <canvas style="display: inline-block; width: 74px; height: 16px; vertical-align: top;" width="74" height="16"></canvas>
+                </span>
+            </div>
+        </div>*@
+
+
+    <div class="col-sm-12 col-md-12 modal" id="modal" style="background:transparent;">
+
+    </div>
+
+    <div class="butpro butstyle flat pm" id="Detalhe">
+        <div class="sub">
+            <h2>Pedidos atual</h2>
+            <span>@Model.ElementAt(0).charts.ElementAt(total[0] - 3).Item</span>
+        </div>
+        <div class="stat">
+            <span class=""> @Model.ElementAt(0).charts.ElementAt(total[0] - 3).Valor</span>
+        </div>
+    </div>
+    <div class="butpro butstyle flat" >
+        <div class="sub">
+            <h2>Periodo atual</h2>
+            <span>@Model.ElementAt(1).charts.ElementAt(total[1] - 3).Item</span>
+        </div>
+        <div class="stat">
+            <span class=""> @Model.ElementAt(1).charts.ElementAt(total[1] - 3).Valor</span>
+        </div>
+    </div>
+    <div class="butpro butstyle flat">
+        <div class="sub">
+            <h2>Peso bruto atual</h2>
+            <span>@Model.ElementAt(2).charts.ElementAt(total[2] - 3).Item</span>
+        </div>
+        <div class="stat">
+            <span class="">@Model.ElementAt(2).charts.ElementAt(total[2] - 3).Valor</span>
+        </div>
+    </div>
+    @*           <div class="butpro butstyle flat">
+            <div class="sub">
+                <h2>AVERAGE</h2>
+                <span>3%</span>
+            </div>
+            <div class="stat">
+                <span class="spk2">
+
+                </span>
+            </div>
+        </div>
+        <div class="butpro butstyle flat">
+
+            <div class="sub">
+                <h2>Downloads</h2>
+                <span>184</span>
+            </div>
+            <div class="stat">
+                <span class="spk3">
+
+                </span>
+            </div>
+        </div>*@
+</div>
+
+<div class="col-sm-6 col-md-6">
+
+    @*Tabela liberado*@
+    <div class="block">
+        <div class="header no-border">
+            <h2>Pedidos Liberados</h2>
+        </div>
+        <div class="content blue-chart">
+            <div id="graf_liberado" style="height:250px;"></div>
+        </div>
+        <div class="content">
+            <div class="stat-data">
+                <div class="stat-blue">
+                    <h2>@soma[0]</h2>
+                    <span>Total de pedidos</span>
+                </div>
+            </div>
+            <div class="stat-data">
+                <div class="stat-number">
+                    <div class="butpro butstyle flat" style="width:200px;">
+                        <div class="stat" style="width:auto;">
+                            <div class="stat-number" style="width:auto;">
+                                <div>
+                                    <h2 class="up" style="width:45px;">@Model.ElementAt(0).charts.ElementAt(total[0] - 1).Valor</h2>
+
+                                </div>
+
+                                <div><span>Volume pedido</span> <br><span>@Model.ElementAt(0).charts.ElementAt(total[0] - 1).Item</span></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-data">
+                <div class="stat-number">
+                    <div class="butpro butstyle flat" style="width:200px;">
+                        <div class="stat" style="width:auto;">
+                            <div class="stat-number" style="width:auto;">
+                                <div>
+                                    <h2 class="down" style="width:45px;">@Model.ElementAt(0).charts.ElementAt(total[0] - 2).Valor</h2>
+
+                                </div>
+
+                                <div><span>Volume pedido</span> <br><span>@Model.ElementAt(0).charts.ElementAt(total[0] - 2).Item</span></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    @*Tabela peso*@
+    <div class="block">
+        <div class="header no-border">
+            <h2>Pedidos Peso</h2>
+        </div>
+        <div class="content blue-chart">
+            <div id="graf_peso" style="height:250px;"></div>
+        </div>
+        <div class="content">
+            <div class="stat-data" style="margin:0px 0px 0px -25px">
+                <div class="stat-blue">
+                    <h2>@soma[2]</h2>
+                    <span>Total do peso bruto</span>
+                </div>
+            </div>
+            <div class="stat-data">
+                <div class="stat-number">
+                    <div class="butpro butstyle flat" style="width: auto; margin: 0px 60px 0px -10px;">
+                        <div class="stat" style="width:auto;">
+                            <div class="stat-number" style="width:252px;">
+                                <div>
+                                    <h2 class="up" style="width: 105px; margin: 0px 60px 0px -24px;">@Model.ElementAt(2).charts.ElementAt(total[2] - 1).Valor</h2>
+
+                                </div>
+
+                                <div><span>Peso</span> <br><span>@Model.ElementAt(2).charts.ElementAt(total[2] - 1).Item</span></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-data">
+                <div class="stat-number">
+                    <div class="butpro butstyle flat" style="width: auto; margin: 0px 60px 0px -10px;">
+                        <div class="stat" style="width:auto;">
+                            <div class="stat-number" style="width:252px;">
+                                <div>
+                                    <h2 class="down" style="width: 105px; margin: 0px 60px 0px -24px;">@Model.ElementAt(2).charts.ElementAt(total[2] - 2).Valor</h2>
+
+                                </div>
+
+                                <div><span>Peso</span> <br><span>@Model.ElementAt(2).charts.ElementAt(total[2] - 2).Item</span></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-6 col-md-6">
+
+    @*Tabela periodo*@
+    <div class="block">
+        <div class="header no-border">
+            <h2>Pedidos Periodo</h2>
+        </div>
+        <div class="content blue-chart">
+            <div id="graf_periodo" style="height:250px;"></div>
+        </div>
+        <div class="content">
+            <div class="stat-data">
+                <div class="stat-blue">
+                    <h2>@Math.Round(soma[1] / (total[1] - 2), 2)</h2>
+                    <span>Media de tempo</span>
+                </div>
+            </div>
+            <div class="stat-data">
+                <div class="stat-number">
+                    <div class="butpro butstyle flat" style="width:210px;">
+                        <div class="stat" style="width:auto;">
+                            <div class="stat-number" style="width:210px;">
+                                <div>
+                                    <h2 class="up" style="width:65px;margin:0px 10px 0px 0px;">@Model.ElementAt(1).charts.ElementAt(total[1] - 1).Valor</h2>
+
+                                </div>
+
+                                <div><span>Periodo</span> <br><span>@Model.ElementAt(1).charts.ElementAt(total[1] - 1).Item</span></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-data">
+                <div class="stat-number">
+                    <div class="butpro butstyle flat" style="width:210px;">
+                        <div class="stat" style="width:auto;">
+                            <div class="stat-number" style="width: 210px;">
+                                <div>
+                                    <h2 class="down" style="width:65px;margin:0px 10px 0px 0px;">@Model.ElementAt(1).charts.ElementAt(total[1] - 2).Valor</h2>
+
+                                </div>
+
+                                <div><span>Periodo</span> <br><span>@Model.ElementAt(1).charts.ElementAt(total[1] - 2).Item</span></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    @*Tabela pedido pessoa*@
+    <div class="block">
+        <div class="header no-border">
+            <h2>Pedidos pessoa</h2>
+        </div>
+        <div class="content blue-chart">
+            <div id="graf_pedido_pessoa" style="height:250px;"></div>
+        </div>
+        <div class="content">
+            <div class="stat-data" style="margin:0px 0px 0px -20px">
+                <div class="stat-blue">
+                    <h2>@soma[3]</h2>
+                    <span>Total de pedidos</span>
+                </div>
+            </div>
+            <div class="stat-data">
+                <div class="stat-number">
+                    <div class="butpro butstyle flat" style="width: auto; margin: 0px 60px 0px -10px;">
+                        <div class="stat" style="width:auto;">
+                            <div class="stat-number" style="width:220px;">
+                                <div>
+                                    <h2 class="up" style="width: 75px; margin: 0px 35px 0px -15px;">@Model.ElementAt(3).charts.ElementAt(total[3] - 1).Valor</h2>
+
+                                </div>
+
+                                <div><span>Peso</span> <br><span>@Model.ElementAt(3).charts.ElementAt(total[3] - 1).Item</span></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-data">
+                <div class="stat-number">
+                    <div class="butpro butstyle flat" style="width: auto; margin: 0px 60px 0px -10px;">
+                        <div class="stat" style="width:auto;">
+                            <div class="stat-number" style="width:220px;">
+                                <div>
+                                    <h2 class="down" style="width: 75px; margin: 0px 35px 0px -15px;">@Model.ElementAt(3).charts.ElementAt(total[3] - 2).Valor</h2>
+
+                                </div>
+
+                                <div>
+                                    <span>Peso</span> <br><span>
+                                        @Model.ElementAt(3).charts.ElementAt(total[3] - 2).Item
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+@* <div id="curve_chart" style="width: 900px; height: 500px"></div>*@
+
+
+@section MeusScripts{
+    <script type="text/javascript">
+
+
+
+        $(document).ready(function () {
+
+            var tabela = $('#TabelaPed').DataTable({
+
+                paging: true
+
+            });
+
+            $('#Detalhe').on('click', function () {              
+                var dia = "@Model.ElementAt(0).charts.ElementAt(total[0] - 3).Item.ToString()";
+            
+                $("#modal").load("PedidoAtualDetalhe?Dia=" + dia, function () {
+                    $("#modal").modal();
+                });
+            });
+
+        });
+
+    </script>
+}

@@ -1,0 +1,333 @@
+﻿@model DadoCadastroCliViewModel
+@{
+
+    Layout = "~/Views/Shared/__LayoutWms.cshtml";
+}
+
+@section MeusStyles
+{
+    <link href="~/assets/css/tabela_local.css" rel="stylesheet" />
+    <style>
+        .visibilidade {
+            visibility: hidden;
+        }
+    </style>
+}
+
+<div class="col-sm-12 col-md-12 block-flat">
+    @using (Html.BeginForm())
+    {
+        
+        @if (Model.cliente.IdCliente != 0)
+        {
+           <h3 class="text-center"><strong>Edição de cliente</strong></h3>
+        }
+        else
+        {
+            <h3 class="text-center"><strong>Cadastro de cliente</strong></h3>
+        }
+
+        <br />
+        <br />
+
+        <div class="form-group">
+            <div>
+                <label class="col-sm-1 control-label ">Nome:</label>
+                <div class="col-sm-3">
+
+                    @Html.TextBoxFor(x => x.cliente.NomeCliente, Model.cliente.NomeCliente, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Fantasia:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.cliente.Fantasia, Model.cliente.Fantasia, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Cep:</label>
+                <div class="col-sm-2" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.cliente.Cep, Model.cliente.Cep, new { placeholder = "_____-___", @Class = "form-control input-sm   " })
+                    @Html.ValidationMessageFor(x => x.cliente.Cep)
+                </div>
+
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div>
+                <label class="col-sm-1 control-label ">Endereço:</label>
+                <div class="col-sm-3">
+
+                    @Html.TextBoxFor(x => x.cliente.Endereco, Model.cliente.Endereco, new { @Class = "form-control input-sm   " })
+                </div>
+                <label class="col-sm-1 control-label ">Nº:</label>
+                <div class="col-sm-1">
+
+                    @Html.TextBoxFor(x => x.cliente.NumeroEndereco, Model.cliente.NumeroEndereco, new { @Class = "form-control input-sm " })
+                </div>
+            </div>
+
+            <label class="col-sm-2 control-label ">Complemento:</label>
+            <div class="col-sm-1" style="width:auto">
+
+                @Html.TextBoxFor(x => x.cliente.Complemento, Model.cliente.Complemento, new { @Class = "form-control input-sm   " })
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div>
+
+
+                <label class="col-sm-1 control-label ">Bairro:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.cliente.Bairro, Model.cliente.Bairro, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Cidade:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.cliente.Cidade, Model.cliente.Cidade, new { @Class = "form-control input-sm   " })
+                </div>
+                <label class="col-sm-1 control-label ">UF:</label>
+                <div class="col-sm-1">
+
+                    @Html.TextBoxFor(x => x.cliente.Uf, Model.cliente.Uf, new { @Class = "form-control input-sm   " })
+                </div>
+
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div>
+                <label class="col-sm-1 control-label ">DD:</label>
+                <div class="col-sm-1">
+
+                    @Html.TextBoxFor(x => x.cliente.Ddd, Model.cliente.Ddd, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Telefone:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.cliente.Telefone1, Model.cliente.Telefone1, new { placeholder = "_____-____", @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Telefone 2:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.cliente.Telefone2, Model.cliente.Telefone2, new { placeholder = "_____-____", @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Telefone3:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.cliente.Telefone3, Model.cliente.Telefone3, new { placeholder = "_____-____", @Class = "form-control input-sm   " })
+                </div>
+
+
+
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div>
+                <label class="col-sm-1 control-label ">CPF:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.cliente.Cpf, Model.cliente.Cpf, new { placeholder = "___.___.___-__", @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">CNPJ:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.cliente.Cnpj, Model.cliente.Cnpj, new { placeholder = "__.___.___-/___-__", @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Inscrição estadual:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.cliente.InscEst, Model.cliente.InscEst, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Status:</label>
+                <div class="col-sm-1">
+
+                    @Html.TextBoxFor(x => x.cliente.Status, Model.cliente.Status, new { @Class = "form-control input-sm   " })
+                </div>
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div>
+
+                <label class="col-sm-1 control-label ">Contato:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.cliente.Contato1, Model.cliente.Contato1, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Contato xml:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.cliente.ContatoXml1, Model.cliente.ContatoXml1, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Email xml:</label>
+                <div class="col-sm-3">
+
+                    @Html.TextBoxFor(x => x.cliente.EmailXml1, Model.cliente.EmailXml1, new { @Class = "form-control input-sm   " })
+                </div>
+
+
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div>
+
+                <label class="col-sm-1 control-label ">Contato xml 2:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.cliente.ContatoXml2, Model.cliente.ContatoXml2, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Email xml 2:</label>
+                <div class="col-sm-3">
+
+                    @Html.TextBoxFor(x => x.cliente.EmailXml2, Model.cliente.EmailXml2, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Contato xml 3:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.cliente.ContatoXml3, Model.cliente.ContatoXml3, new { @Class = "form-control input-sm   " })
+                </div>
+
+
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div>
+
+                <label class="col-sm-1 control-label ">Email xml 3:</label>
+                <div class="col-sm-3">
+
+                    @Html.TextBoxFor(x => x.cliente.EmailXml3, Model.cliente.EmailXml3, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Email:</label>
+                <div class="col-sm-3">
+
+                    @Html.TextBoxFor(x => x.cliente.Email, Model.cliente.Email, new { @Class = "form-control input-sm   " })
+                </div>
+
+
+
+
+            </div>
+
+
+            <br />
+            <br />
+            <br />
+
+            <div>
+                <label class="col-sm-1 control-label ">Obs:</label>
+                <div class="col-sm-8">
+
+                    @Html.TextBoxFor(x => x.cliente.Obs, Model.cliente.Obs, new { @Class = "form-control input-sm   " })
+                </div>
+
+
+            </div>
+            <br />
+            <br />
+            <br />
+
+            @if (!String.IsNullOrEmpty(Model.Erro))
+            {
+                <label style="color:red;font-size:small;">@Model.Erro</label>
+            }
+            <div class="form-group">
+                <div class="col-sm-offset-11">
+                    <div>
+                        <input class="btn btn-success" type="submit" name="Pesquisar" id="pesqisar" value="Salvar" />
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        @Html.TextBoxFor(x => x.cliente.CodigoMunicipio, Model.cliente.CodigoMunicipio, new { @Class = "visibilidade" })
+        @Html.TextBoxFor(x => x.cliente.IdCliente, Model.cliente.IdCliente.ToString(), new { @Class = "visibilidade" })
+    }
+
+</div>
+
+
+
+
+@section MeusScripts{
+    <script>
+		$(document).ready(function () {
+           
+            $('#cliente_Cpf').mask('999.999.999-99');
+            $('#cliente_Cnpj').mask('99.999.999/9999-99'); 
+            $('#cliente_Telefone1').mask('99999-9999');
+            $('#cliente_Telefone2').mask('99999-9999');
+            $('#cliente_Telefone3').mask('99999-9999');
+            $('#cliente_Ddd').mask('(99)');
+            $('#cliente_Cep').mask('99999-999');
+            $(function ($) {
+                $("input[name='cliente.Cep']").change(function () {
+                   
+                    var cep_code = $( "#cliente_Cep" ).val();
+							console.log("valor Cep: "+cep_code)
+
+                    $.get('@Url.Action("AddrByCep", "Cadastro")', { cep: cep_code }, function (dados) {
+                        
+
+                        if (dados.logradouro == "") {
+
+                                alert("Cep não encontrado");
+                                return;
+
+                         } 
+                                $("input[name='cliente.Cidade']").val(dados.localidade);
+                                $("input[name='cliente.Cep']").val(dados.cep);
+                                $("input[name='cliente.Bairro']").val(dados.bairro);
+                                $("input[name='cliente.Endereco']").val(dados.logradouro);
+                                $("input[name='cliente.Uf']").val(dados.uf);
+                                $("input[name='cliente.Complemento']").val(dados.complemento);
+                             
+                            //$("input[name='Cod_municipio_txt']").val(dados.Cod_municipio_txt);
+                            if(dados.cod_municipio_txt!=""){
+                                $("input[name='cliente.CodigoMunicipio']").val(dados.cod_municipio_txt).change();
+                            }
+                    });
+    
+                });
+
+            });
+
+ });
+
+    </script>
+}

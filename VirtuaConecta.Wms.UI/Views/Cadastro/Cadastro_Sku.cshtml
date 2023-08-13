@@ -1,0 +1,195 @@
+﻿@model DadoCadastroProdutoViewModel
+@{
+
+    Layout = "~/Views/Shared/__LayoutWms.cshtml";
+}
+
+@section MeusStyles
+{
+    <link href="~/assets/css/tabela_local.css" rel="stylesheet" />
+    <style>
+        .visibilidade {
+            visibility: hidden;
+        }
+    </style>
+}
+
+<div class="col-sm-12 col-md-12 block-flat">
+    @using (Html.BeginForm())
+    {
+
+        @if (Model.produto.Id_produto != 0)
+        {
+            <h3 class="text-center"><strong>Edição de produto</strong></h3>
+        }
+        else
+        {
+            <h3 class="text-center"><strong>Cadastro de produto</strong></h3>
+        }
+
+        <br />
+        <br />
+
+        <div class="form-group">
+            <div>
+                <label class="col-sm-1 control-label ">Descricao:</label>
+                <div class="col-sm-2">
+
+                    @Html.TextBoxFor(x => x.produto.Descricao, Model.produto.Descricao, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Sku:</label>
+                <div class="col-sm-1" style="width:auto">
+                    @if (Model.produto.Id_produto != 0)
+                    {
+                        @Html.TextBoxFor(x => x.produto.Sku, Model.produto.Sku, new { @Class = "form-control input-sm   ", disabled = "disabled" })
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(x => x.produto.Sku, Model.produto.Sku, new { @Class = "form-control input-sm   " })
+                    }
+                </div>
+
+                <label class="col-sm-1 control-label ">Operador:</label>
+                <div class="col-sm-1" style="width:auto;">
+
+                    @Html.TextBoxFor(x => x.produto.Operador, Model.produto.Operador, new { @Class = "form-control input-sm   " })
+                </div>
+                <label class="col-sm-1 control-label ">Uni:</label>
+                <div class="col-sm-1">
+
+                    @Html.TextBoxFor(x => x.produto.Unidade, Model.produto.Unidade, new { @Class = "form-control input-sm ", })
+                </div>
+
+            </div>
+            <br />
+            <br />
+            <br />
+
+            <div>
+
+                <label class="col-sm-1 control-label ">Ncm:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.produto.Ncm, Model.produto.Ncm.ToString(), new { @Class = "form-control input-sm   " })
+                </div>
+                <label class="col-sm-1 control-label ">Volume:</label>
+                <div class="col-sm-1">
+
+                    @Html.TextBoxFor(x => x.produto.Volume, Model.produto.Volume.ToString(), new { @Class = "form-control input-sm   " })
+                </div>
+
+
+                <label class="col-sm-1 control-label ">Peso liq:</label>
+                <div class="col-sm-1">
+
+                    @Html.TextBoxFor(x => x.produto.Peso_liq, Model.produto.Peso_liq.ToString(), new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Peso uni:</label>
+                <div class="col-sm-1">
+
+                    @Html.TextBoxFor(x => x.produto.P_unit, Model.produto.P_unit.ToString(), new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Peso brt:</label>
+                <div class="col-sm-1">
+
+                    @Html.TextBoxFor(x => x.produto.Peso_brt, Model.produto.Peso_brt.ToString(), new { placeholder = "Peso br", @Class = "form-control input-sm   " })
+                </div>
+
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div>
+                <label class="col-sm-1 control-label ">Embalagem:</label>
+                <div class="col-sm-1" style="width:auto">
+                    @*@if (String.IsNullOrEmpty(Model.produto.Embalagem))
+                        {*@
+                    @Html.DropDownListFor(x => x.produto.Embalagem, Model.emblagens, "Selecione..", new { @Class = "form-control", @readonly = "readonly", })
+                    @*}
+                        else
+                        {
+                            @Html.DropDownListFor(x => x.produto.Embalagem, Model.emblagens, listaProdutoViewModel.embalagens.Where(x => x.id.ToString() == Model.produto.Embalagem).FirstOrDefault().descricao, new { @Class = "form-control", @readonly = "readonly", })
+                        }*@
+                </div>
+                <label class="col-sm-1 control-label ">Quantidade embalagem:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.produto.qtd_emb, Model.produto.qtd_emb.ToString(), new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Cst:</label>
+                <div class="col-sm-1">
+
+                    @Html.TextBoxFor(x => x.produto.Cst, Model.produto.Cst.ToString(), new { @Class = "form-control input-sm   " })
+                </div>
+
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div>
+                <label class="col-sm-1 control-label ">Laço:</label>
+                <div class="col-sm-1">
+
+                    @Html.TextBoxFor(x => x.produto.Laco, Model.produto.Laco.ToString(), new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Altura:</label>
+                <div class="col-sm-1">
+
+                    @Html.TextBoxFor(x => x.produto.Altura, Model.produto.Altura.ToString(), new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Código de barra:</label>
+                <div class="col-sm-1" style="width:auto">
+
+                    @Html.TextBoxFor(x => x.produto.Cod_bar1, Model.produto.Cod_bar1, new { @Class = "form-control input-sm   " })
+                </div>
+
+                <label class="col-sm-1 control-label ">Obs:</label>
+                <div class="col-sm-3">
+
+                    @Html.TextBoxFor(x => x.produto.Obs, Model.produto.Obs, new { @Class = "form-control input-sm   " })
+                </div>
+
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+
+
+            @if (!String.IsNullOrEmpty(Model.Erro))
+            {
+                <label style="color:red;font-size:small;">@Model.Erro</label>
+            }
+            <div class="form-group">
+                <div class="col-sm-offset-11">
+                    <div>
+                        <input class="btn btn-success" type="submit" name="Pesquisar" id="pesqisar" value="Salvar" />
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        @Html.TextBoxFor(x => x.produto.Data_cad, Model.produto.Data_cad, new { @Class = "visibilidade" })
+        @Html.TextBoxFor(x => x.produto.Id_produto, Model.produto.Id_produto.ToString(), new { @Class = "visibilidade" })
+        @Html.TextBoxFor(x => x.produto.Id_cliente, Model.produto.Id_cliente.ToString(), new { @Class = "visibilidade" })
+
+        @if (Model.produto.Id_produto != 0)        
+            @Html.TextBoxFor(x => x.produto.Sku, Model.produto.Sku, new { @Class = "visibilidade" })
+
+        }
+
+    </div>
+

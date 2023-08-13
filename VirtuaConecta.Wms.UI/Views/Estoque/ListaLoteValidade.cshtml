@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "Wms - Entrada Pedidos";
+    Layout = "~/Views/Shared/__LayoutWms.cshtml";
+}
+<head>
+@section MeusStyles
+{
+      <link href="~/assets/css/tabela_local.css" rel="stylesheet" />
+
+    <style>
+        .pm {
+            cursor: pointer;
+        }
+
+        .detail {
+            background-color: #d4d0d8;
+            padding: 7px;
+        }
+
+        td.details-control {
+           
+            background: url('../../assets/img/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+
+        tr.shown td.details-control {
+            background: url('../../assets/img/details_close.png') no-repeat center center;
+        }
+    </style>
+}    
+         
+          <h2 >Entrada em estoque lote - validade</h2>
+ 
+</head>
+
+<body>
+     <partial  name="_PartialListaEstoqueEstagio.cshtml"/>
+
+     @section MeusScripts{
+    <script>
+
+          $(document).ready(function () {
+          
+            var tabela = $('#TabelaEstoque').DataTable({
+
+                paging: true
+            });
+
+
+            //Evento de adição par abrir e fechar as linas filhas
+            $('#TabelaEstoque tbody').on('click', 'td.details-control', function () {
+                var oTr = $(this).closest('tr');
+                var Linha = tabela.row(oTr);
+
+                if (Linha.child.isShown()) {
+                    // Se a janela das linhas filhas estiver aberta - fechar
+                    Linha.child.hide();
+                    //Mostra a imagem Do Head(+)
+                    oTr.removeClass('shown');
+                }
+                else {
+                    //Abra esta linha
+                    // Aqui abre a função que vai buscar o dado da linha filha
+
+                    var id = oTr.find("td:eq(1)").html()
+                     var id2 = oTr.find("td:eq(8)").html()
+                    $.get('@Url.Action("InsereLoteValidade", "Estoque")', { ID: id, ID2:id2 }, function (itens) {
+
+                        Linha.child(itens).show();
+
+                    });
+          //Mostra a imagem do detalhe(-)
+                    oTr.addClass('shown');
+                }
+            });
+
+           
+
+        });
+           function validarpos() {
+            
+              var posEntrada =  $("#PosicaoI").val();
+              var Qtd_ped =  $("#Qtd_ped").val().replace(',','.');
+              var Qtd_Entrada =  $("#Qtd_entrada").val().replace(',','.');
+              var Qtd_pos =  $("#qtd_palet").val().replace(',','.');
+              var Vol_pos =  $("#vol_palet").val().replace(',','.');
+              var Validade =  $("#Validade").val();
+              var Lote =  $("#Lote").val();
+
+
+              var pos = '{\"Posicao\":\"'+posEntrada +'\",\"Qtd_ped\":'+Qtd_ped +',\"Qtd_ent\":'+Qtd_Entrada +',\"Qtd_pos\":'+Qtd_pos +',\"Vol_pos\":'+Vol_pos +',\"Validade\":\"'+Validade +'\",\"Lote\":\"'+Lote +'\"}';
+
+
+              $.get('@Url.Action("validaPosicao", "Estoque")', { posicao: pos }, function (retorno) {
+
+
+                  if  (retorno=='OK'){
+
+                      document.getElementById('AtualizarItem').disabled=false;
+                  }
+
+
+                       alert(retorno);
+
+                    });
+
+
+
+             
+            
+            
+            }
+            function formatapos() {
+            
+             $("#PosicaoI").mask("AAAAAAAA");
+            
+            }
+
+        
+    </script>
+}
+
+
+</body>
+

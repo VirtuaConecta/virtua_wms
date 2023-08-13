@@ -1,0 +1,11 @@
+﻿@using (Html.BeginForm())
+{
+    @if (!String.IsNullOrEmpty(Model.LinkDownload))
+    {
+        <section>
+            <div class="alert alert-info alert-dismissible" role="alert">
+                <a class="fa fa-download" href='@Model.LinkDownload' target="_blank">Baixar Arquivo</a>
+            </div>
+        </section>
+    }
+}

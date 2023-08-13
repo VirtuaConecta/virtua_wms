@@ -1,0 +1,13 @@
+﻿@*
+    Criamos um componente (Partial View) pra exibição de
+    mensagens de sucesso, tanto nesse projeto quanto em outros
+    Pra levar pra outros projetos CTRL + C e CTRL + V
+    Colocamos esse componente dentro da pasta SHARED
+    Pq ele pode ser acessado de qualquer página do projeto
+*@
+<section>
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @TempData["SUCESSO"]
+    </div>
+</section>

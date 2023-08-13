@@ -1,0 +1,277 @@
+﻿@{
+  
+    Layout = "~/Views/Shared/__LayoutWms.cshtml";
+    ViewBag.NomeTela = "Gerador Arquivo Edi-GMB";
+}
+@section MeusStyles{
+     <link href="~/assets/css/tabela_local.css" rel="stylesheet" />
+    <style>
+        .Labelf {
+            color: black;
+            font-family: Arial;
+            font-size: 11px;
+            padding-left: 0px;
+            padding-bottom: -5px;
+            padding-top: -1px;
+            padding-right: 0px;
+        }
+        .visibilidade{
+            visibility:hidden;
+        }
+        .visibilidade.visivel {
+            visibility: visible;
+        }
+        .input-lg {
+  font-size: 25px;
+}
+
+        .tamanhoDrop{
+            width:600px !important;
+            height:50px !important;
+            padding:0px !important;
+            background-color:transparent !important;
+            border-image:none !important;
+            
+        }
+    </style>
+}
+
+@* 10.035%; *@
+
+<div class="col-md-12" style="margin-left:auto">        
+    <div class="block-flat">
+       
+      <div class="form-group">  
+           <form id="mydz" action="/Cdoca/UploadArquivosRecebidos" method="post" class="dropzone tamanhoDrop">
+           <div class="col-sm-2">
+             <h4><span class="label label-info">
+               @Html.Label("Valor/Kg")
+             </span></h4>
+          </div>
+           
+          <div class="col-sm-3">
+            @Html.TextBox("valorKg", (String)ViewBag.ValKilo,new { @Class = "form-control input-lg" } )
+          </div>
+          <div class="col-sm-7">
+           
+                <div class="fallback">
+
+
+
+                    <input type="file" value="file" multiple />
+                    <input type="submit" value="Upload" />
+
+
+                </div>
+            
+          </div>
+          </form>
+      </div>
+
+        <div class="form-horizontal" id="FormCriar">
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <table id="TabelaPed" class="tabelaFormato1">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Ordem</th>
+                                <th>Remessa </th>
+                                <th>Transporte </th>
+                                <th>Placa </th>
+                                <th>Cidade_destino </th>
+                                <th>Destino</th>
+                                
+                                <th>Nf doc</th>
+                                
+                                <th>N° Nf</th>
+                                <th>Data doc</th>
+                                <th>Emissor</th>
+                                <th>Peso</th>
+                                <th>Volume</th>
+                                
+                                <th>Valor frete</th>
+                                <th>Densid</th>
+                                <th>Cub</th>
+                                <th>Fator</th>
+                                <th>Frete Cal</th>
+
+                                <th>Valor Nf</th>
+                                
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                
+
+                            </tr>
+                        </tbody>
+                        @*<tbody>
+                            @foreach (var frete in Model)
+                            {
+                                <tr>
+                                    <td id="linhaClick" class="pm details-control"></td>
+
+                                    <td>
+
+                                        @if (Pedido.Processado == "N")
+                                        {
+                                            <a href="@Url.Action("InserePedidoEntradaEstoque", new { Id = @Pedido.Indice, ID2 = @Pedido.Remessa })"
+                                               class="fa fa-download" , style="font-size:16px;text-indent:10px"></a>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (Pedido.Processado == "N")
+                                        {
+                                            <a href="@Url.Action("ApagarPedidoEntradaEstoque", new { Id = @Pedido.Indice, ID2 = @Pedido.Remessa })"
+                                               onclick="return confirm('Deseja inserir o pedido?')" class="fa fa-trash-o" , style="font-size:16px;text-indent:10px"></a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>*@
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input class="btn btn-success visibilidade" type="submit" name="salvar" id="salvar" value="Gerar Arquivo Edi" />
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="modal" id="modal">
+
+        </div>
+
+    </div>
+ </div>
+
+
+
+    @section MeusScripts{
+        @*//File Upload response from the server*@
+
+<script>
+
+        $(document).ready(function () {
+
+            var tabela = $('#TabelaPed').DataTable({
+                //ajax: "data.json",
+                paging: true,
+                 "oLanguage": {
+                    "sEmptyTable": " "
+               
+                },
+                 fixedColumns: true
+                 
+            });
+            recolhe_menu();
+            $(function () {
+                $(".visibilidade").click(function () {
+
+                    $("#modal").load("ExportarEDI", function () {
+                        $("#modal").modal();
+                    })
+                    $('#TabelaPed').DataTable().clear().draw();
+                    var btn = $("#salvar");
+                    btn.removeClass("visivel");
+                });
+            });
+        });
+
+        Dropzone.options.mydz = {
+
+            init: function () {
+            
+                this.on("complete", function (data) {
+                 
+                  
+                    $.get('@Url.Action("RetornaTabela", "Cdoca")', {}, function (fretes) {
+                        $('.dz-preview').remove();
+                        var num_linhas = $("#TabelaPed tr").length;
+
+                        if (fretes[0].emissor_ordem != "OK") {
+                            $('#TabelaPed').DataTable().clear().draw(); 
+
+                            var tbl = $("#TabelaPed");
+                            $.each(fretes, function (index, item) {
+
+                                var tr = $("<tr></tr>");
+                                tr.html(
+                                    + " " + ("<td>" + item.ordem + "</td>")
+                                    + " " + ("<td>" + item.remessa + "</td>")
+                                    + " " + ("<td>" + item.transporte + "</td>")
+                                    + " " + ("<td>" + item.placa + "</td>")
+                                    + " " + ("<td>" + item.cidade_destino + "</td>")
+                                    + " " + ("<td>" + item.nome_Destino + "</td>")
+                                    + " " + ("<td>" + item.nfiscal_doc + "</td>")
+                                    + " " + ("<td>" + item.numero_Nota_Fiscal + "</td>")
+                                    + " " + ("<td>" + item.data_Doc + "</td>")
+                                    + " " + ("<td>" + item.emissor_ordem + "</td>")
+                                    + " " + ("<td>" + item.peso + "</td>")
+                                    + " " + ("<td>" + item.volume + "</td>")
+                                    + " " + ("<td>" + item.valor_frete + "</td>")
+
+                                    + " " + ("<td>" + item.densidade + "</td>")
+                                    + " " + ("<td>" + item.cubagem + "</td>")
+                                    + " " + ("<td>" + item.fator + "</td>")
+                                    + " " + ("<td>" + item.valor_frete_calc + "</td>")
+
+
+                                    + " " + ("<td>" + item.valor_nf + "</td>"));
+                                   
+                                tbl.append(tr);
+                            });
+
+                        } else {
+                            var btn = $("#salvar");
+                            btn.addClass("visivel");
+                        }
+                      
+
+                        // alert("Arquivos importados");
+                    })
+                               
+                });
+            },
+            dictDefaultMessage: "Arraste o arquivo aqui ou Clique na Área para Importar"
+
+            };
+
+            function recolhe_menu(){
+                  var l = document.getElementById('sidebar-collapse');
+                                for(var i=0; i<5; i++){
+                                  l.click();
+                                  };
+            };
+
+
+
+</script>
+    }

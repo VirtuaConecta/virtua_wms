@@ -1,0 +1,144 @@
+﻿@model List<CharsViewModel>
+
+@{
+    ViewBag.Title = "Gestão de Logística - Dashboard";
+    ViewBag.NomeTela = "Dashboard";
+    Layout = "~/Views/Shared/__LayoutWms.cshtml";
+
+}
+
+@{
+    int[] total = new int[Model.Count];
+    int cont2 = 0;
+    int cont = 0;
+    Decimal[] soma = new Decimal[Model.Count];
+
+    for (int aux2 = 0; aux2 < Model.Count; aux2++)
+    {
+        total[aux2] = Model.ElementAt(aux2).charts.Count();
+    @foreach (var data in Model.ElementAt(aux2).charts)
+        {
+            if (cont > total[aux2] - 3)
+            {
+                cont = 0;
+                break;
+            }
+            var aux = data.Valor;
+            soma[aux2] += aux;
+            cont++;
+        }
+
+    }
+}
+
+@section MeusStyles {
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+
+        google.charts.setOnLoadCallback(Volume_cliente);
+
+    function Volume_cliente() {
+        var data = google.visualization.arrayToDataTable([
+            ['cliente', 'Volume','Peso(ton)'],
+
+          @foreach (var data in Model.ElementAt(0).charts.OrderByDescending(x=>x.Valor).ToList())
+          {
+              if (cont2 != 0) {
+                  if ((cont > total[0] - 3) )
+                  {
+                      cont = 0;
+                      cont2 = 0;
+                      break;
+                  }
+
+                <text>['@data.Item',@Convert.ToInt32(data.Valor),@Convert.ToInt32(data.Valor2/1000)],</text>
+                  cont++;
+              }else
+              {
+                  cont2++;
+              }
+          }
+        ]);
+
+        var options = {
+            title: 'Volume e peso por cliente',
+            bar: { groupWidth: "85%" },
+            legend: 'none',
+            colors: ['orange','red'],
+            fontSize:10,
+            hAxis: { textStyle: { color: '#ffffff' }, viewWindowMode: 'maximized', },
+         
+            vAxis: { textStyle: { color: '#ffffff' }},
+          width : '100%',
+          height:'100%',
+          chartArea: {  width : '75%', height:'65%'},
+          backgroundColor: { fill:'transparent' },
+            titleTextStyle: {
+                color: '#ffffff', fontSize: 25}
+                };
+                // var chart = new google.visualization.ColumnChart(document.getElementById('graf_volume_cliente'));
+                var chart = new google.visualization.BarChart(document.getElementById("graf_volume_cliente"));
+                chart.draw(data, options);
+                 
+                }
+
+    </script>
+
+}
+
+<div class="col-sm-12 col-md-12">
+
+    @*Tabela volume cliente*@
+    <div class="block" style="width: auto;">
+        <div class="header no-border">
+            <h2>Volume cliente</h2>
+        </div>
+        <div class="content blue-chart" >
+            <div id="graf_volume_cliente" style="height:800px;"></div>
+        </div>
+        <div class="content">
+            <div class="stat-data" style="margin:0px 0px 0px -20px">
+                <div class="stat-blue">
+                    <h2>@Convert.ToInt32(soma[0])</h2>
+                    <span>Total de pedidos</span>
+                </div>
+            </div>
+            <div class="stat-data">
+                <div class="stat-number">
+                    <div class="butpro butstyle flat" style="width: auto; margin: 0px 60px 0px -10px;">
+                        <div class="stat" style="width:auto;">
+                            <div class="stat-number" style="width:220px;">
+                                <div>
+                                    <h2 class="up" style="width: 80px; margin: 0px 40px 0px -25px;">@Convert.ToInt32(Model.ElementAt(0).charts.ElementAt(total[0] - 1).Valor)</h2>
+
+                                </div>
+
+                                <div><span>Volume</span> <br><span>@Model.ElementAt(0).charts.ElementAt(total[0] - 1).Item</span></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-data">
+                <div class="stat-number">
+                    <div class="butpro butstyle flat" style="width: auto; margin: 0px 60px 0px -10px;">
+                        <div class="stat" style="width:auto;">
+                            <div class="stat-number" style="width:220px;">
+                                <div>
+                                    <h2 class="down" style="width: 80px; margin: 0px 40px 0px -25px;">@Convert.ToInt32(Model.ElementAt(0).charts.ElementAt(total[0] - 2).Valor)</h2>
+
+                                </div>
+
+                                <div><span>Volume</span> <br><span>@Model.ElementAt(0).charts.ElementAt(total[0] - 2).Item</span></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>

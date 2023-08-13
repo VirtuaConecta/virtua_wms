@@ -1,0 +1,53 @@
+﻿@model Ped_entrada_saidaViewModel
+
+@{
+    Layout = null;
+}
+
+
+
+
+<table cellpadding="4" cellspacing="0" border="0" style="padding-left:50px;">
+    <thead>
+        <tr>
+
+            <th>Cancelado</th>
+            <th>I/O</th>           
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>Volume Nf</th>
+            <th>Valor nf</th>
+            <th>Peso Nf</th>
+            <th>Valor Nf retorno</th>
+            <th>Nf gerado</th>
+            <th>Transportadora</th>
+            <th>Valor unitario</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr>
+
+            <td>@Model.cancelado</td>
+            <td>@Model.remessa</td>
+            <td>@Model.cidade</td>
+            <td>@Model.estado</td>
+            <td>@Model.volume_total</td>
+            <td>@Model.val_nf</td>
+            <td>@Model.peso_nf</td>
+            <td>@Model.valor_nf_retorno</td>
+            <td>@Model.nf_ok</td>
+            <td>@Model.nome_transp</td>
+            <td>@Model.val_unit</td>
+        </tr>
+
+
+    </tbody>
+
+    
+    </table>
+
+
+
+
+

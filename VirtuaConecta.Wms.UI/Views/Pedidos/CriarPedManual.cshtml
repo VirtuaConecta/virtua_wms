@@ -1,0 +1,418 @@
+﻿@{
+	ViewBag.Acesso = "Criar";
+	ViewBag.NomeTela = "Criar Pedido Manual";
+
+	Layout = "~/Views/Shared/__LayoutWms.cshtml";
+}
+
+
+@section MeusStyles{
+<style>
+	/*Customizamos as mensagens de erro do MVC este nome de classe e padrão para msg de erro*/
+	.field-validation-error {
+		color: red;
+		font-size: 9px;
+		font-weight: bold;
+		font-family: Verdana;
+		background-image: url('../../../../Content/Images/erro.png');
+		background-repeat: no-repeat;
+		padding-left: 18px;
+		/*Com CSS3 mandamos a imagem se auto redimensionar*/
+		background-size: contain;
+	}
+	.fa-check-square{
+
+		font-size: 4em;
+	}
+
+	.decimal2{
+		color: darkgray;
+		font-size: 10px;
+		font-weight: bold;
+		font-family: Verdana;
+	}
+	.decimal4{
+		color: darkgray;
+		font-size: 10px;
+		font-weight: bold;
+		font-family: Verdana;
+	}
+	.inteiros{
+		color: darkgray;
+		font-size: 10px;
+		font-weight: bold;
+		font-family: Verdana;
+	}
+
+</style>
+}
+@section MeusScripts{
+<script>
+			$(document).ready(function ()
+			{		var data1 = null;
+
+					// criar uma regra no change do cnpj de forma a determinar se é PF pu PJ talvez a mascara tenha que ser retirada ou criar cpf e cnpj em campos separados e tirar da tela a validação de pf pj
+
+
+					//$("#Cnpj_dest").mask("9999999/9999-99");
+					$("input[name='Cnpj_dest']").focusin(function() {$("#Cnpj_dest").unmask();});
+				
+					$("input[name='Cnpj_dest']").change(function() {
+
+					
+					var cnpj_cpf = document.getElementById("Cnpj_dest");
+
+					var fisjurLen =(String(cnpj_cpf.value).replace('.', '').replace('-','').replace('/','')).length;
+ 					
+					if (fisjurLen == 11 ){
+						   //alert("Verifique o tamanho do Cnpj/Cpf "+fisjurLen+ " txt "+cnpj_cpf.value);
+							$("#Cnpj_dest").mask("999.999.999-99");
+							//$("input[name='Fis_Jur']").val("F");
+							$("input[name=Fis_Jur][value=F]").prop('checked', true);
+							//return;
+					}
+					else if(fisjurLen == 14){
+						
+						//	alert("Verifique o tamanho do Cnpj/Cpf "+fisjurLen+ " txt "+cnpj_cpf.value);
+						$("#Cnpj_dest").mask("99.999.999/9999-99");
+						//$("input[name='Fis_Jur']").val("J");
+						$("input[name=Fis_Jur][value=J]").prop('checked', true);	
+						//return;
+					}
+					else{
+						//alert("Verifique o tamanho do Cnpj/Cpf "+fisjurLen);
+						//cnpj_cpf.focus();
+					}
+					
+					
+			});
+		
+
+
+
+					$("#Cep_dest").mask("99999-999");
+
+					
+					$(".decimal2").mask("#.##0,00", {reverse: true});
+					$(".decimal4").mask("#.####0,0000", {reverse: true});
+					$(".inteiros").mask("9999999999", {reverse: true});
+					
+					$("#Chave").mask("99999999999999999999999999999999999999999999");
+					
+					$("#P_unit").mask("#.##0.00", {reverse: true});
+					$("#Qtd").mask("#.####0.0000", {reverse: true})
+
+
+
+					$('form').parsley();
+
+					$(".datepicker").datepicker(
+						{
+							dateFormat: 'yy-mm-dd',
+							dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+							dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+							dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+							monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+							monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+							nextText: 'Próximo',
+							prevText: 'Anterior',
+
+							timeOnlyTitle: 'Tempo',
+							timeText: 'Tempo',
+							hourText: 'Hora',
+							minuteText: 'Minuto',
+							secondText: 'Segundo',
+							currentText: 'Agora',
+							closeText: 'Fechar',
+
+
+							timeFormat: 'HH:mm:ss',
+							pickerTimeFormat: 'HH:mm:ss',
+
+							separator: ' '
+
+
+						});
+
+
+					$("#limpar").click(function () {
+
+						//Quando o jquery exibe uma mensagem de erro ele coloca
+						//A classe CSS Field-Validation-Error, se você quiser
+						//Pegar todas as mensagens de uma única vez capturar
+						//Pelo nome da classe CSS
+						//No JQUERY
+						//Pra buscar algum campo por ID colocar #
+						//Pra buscar algum campo pela CLASSE CSS colocar .
+						$(".field-validation-error").empty();
+
+						//Após remover as mensagens de erro, levamos o cursor
+						//Pra dentro do campo NOME
+						$("#Sku").focus();	});
+
+					 $(function($) {
+							$("input[name='Cep_dest']").change(function(){
+
+								var cep_code = $( "#Cep_dest" ).val();
+								console.log("valor Cep: "+cep_code)
+
+
+
+
+								$.get('@Url.Action("AddrByCep","Pedidos")' ,{cep:cep_code},function(dados){
+
+
+										if(dados.logradouro ==""){
+											alert("Cep não encontrado");
+											return;
+										}
+
+
+										$("input[name='Cep_dest']").val(dados.cep);
+										$("input[name='Bairro_dest']").val(dados.bairro);
+										$("input[name='End_dest']").val(dados.logradouro);
+										//$("input[name='Cod_municipio_txt']").val(dados.Cod_municipio_txt);
+										if(dados.cod_municipio_txt!=""){
+										  $("#Cod_municipio_txt").val(dados.cod_municipio_txt);
+										}
+									});
+							});
+					});
+
+					$(".Labeld").change(function () {
+						var end = this.value;
+						$('#dadoscli').val(end);
+
+
+								//captura todos os itens do cliente
+								$.post( '@Url.Action("AutoCompleteSku", "Pedidos")', {id: end })
+								  .done(function( data ) {
+										//alert( "Data Loaded: " + data );
+
+									data1=data;
+									//alert(Object.keys(data).length);
+									var contar =Object.keys(data).length;
+									 if(contar==2){alert('Não foram encontrados produtos para este cliente');}
+
+								});
+
+
+
+					});
+					$("#Skuac").focus(function () {
+						//console.log(data1);
+						//var sk = this.value;
+	 					//	alert(sk);
+
+						//var fakedata1 = ['test1','test2','test3','test4','ietsanders'];
+						var dados = JSON.parse(data1);
+			
+						$("#Skuac").autocomplete({source:dados});
+					});
+	 });
+
+				 function validar1() {
+						// pegando o valor do nome pelos names
+							  var Nr_doc_origem = document.getElementById("Nr_doc_origem");
+							  var Serie_doc = document.getElementById("Serie_doc");
+							  var tipo_doc = document.getElementById("tipo_doc");
+	 
+							  var Id_cliente_txt = document.getElementById("Id_cliente_txt");
+							  var Nome_dest = document.getElementById("Nome_dest");
+							  var Cnpj_dest = document.getElementById("Cnpj_dest");
+
+							  var IE_dest = document.getElementById("IE_dest");
+							  var Cfop = document.getElementById("Cfop");
+							  var Cep_dest = document.getElementById("Cep_dest");
+							  var End_dest = document.getElementById("End_dest");
+							  var Nr_destino = document.getElementById("Nr_destino");
+							  var Bairro_dest = document.getElementById("Bairro_dest");
+							  var Cod_municipio_txt = document.getElementById("Cod_municipio_txt");
+							   var Dt_emissao = document.getElementById("Dt_emissao");
+
+
+							  var Peso_brt_txt = document.getElementById("Peso_brt_txt");
+							  var Peso_liq_txt = document.getElementById("Peso_liq_txt");
+							  var Nr_volumes_txt = document.getElementById("Nr_volumes_txt");
+							  var Total_nf_txt = document.getElementById("Total_nf_txt");
+							  var Chave = document.getElementById("Chave");
+	
+									  // verificar se o nome está vazio
+									  if (Nr_doc_origem.value == "") {
+										alert("Nr_doc_origem não informado");
+
+										// Deixa o input com o focus
+										Nr_doc_origem.focus();
+										// retorna a função e não olha as outras linhas
+										return;
+									  }
+									  else if (Serie_doc.value == "") {
+										alert("Serie_doc não informado");
+										Serie_doc.focus();
+										return;
+									  }
+									  else if (tipo_doc.value == "") {
+										alert("tipo_doc não informado");
+										tipo_doc.focus();
+										return;
+									  }
+									  else if (Nome_dest.value == "") {
+										alert("Nome_dest não informado");
+										Nome_dest.focus();
+										return;
+									  }
+									   else if (Id_cliente_txt.value == "") {
+										alert("Cliente não informado");
+										Id_cliente_txt.focus();
+										return;
+									  }
+									  else if (Cnpj_dest.value == "") {
+										alert("Cnpj_dest não informado");
+										Cnpj_dest.focus();
+										return;
+									  }
+
+									  else if (IE_dest.value == "") {
+										alert("IE_dest não informado");
+										IE_dest.focus();
+										return;
+									  }
+									  else if (Cfop.value == "") {
+										alert("Cfop não informado");
+										Cfop.focus();
+										return;
+									  }
+									  else if (Cep_dest.value == "" || End_dest.value == "" || Nr_destino.value == "" || Bairro_dest.value == "" || Cod_municipio_txt.value == "") {
+										alert("Falta alguma informação do Endereço de destino");
+										Cep_dest.focus();
+										return;
+									  }
+									  else if (Dt_emissao_txt.value == "") {
+										alert("Dt_emissao não informado");
+										Dt_emissao_txt.focus();
+										return;
+									  }
+										else if (Peso_brt.value == "") {
+										alert("Peso_brt não informado");
+										Peso_brt.focus();
+										return;
+									  }
+						 else if (Peso_liq.value == "") {
+							alert("Peso_liq não informado");
+							Peso_liq.focus();
+							return;
+						  }
+						 else if (Nr_volumes.value == "") {
+							alert("Nr_volumes não informado");
+							Nr_volumes.focus();
+							return;
+						  }
+						 else if (Total_nf.value == "") {
+							alert("Total_nf não informado");
+							Total_nf.focus();
+							return;
+						  }
+						 else if (Chave.value == "") {
+							alert("Chave não informado");
+							Chave.focus();
+							return;
+						  }
+						 else {
+
+						 // alert("Formulário enviado!");
+						 // envia o formulário
+						  //formulario.submit();
+							document.getElementById('passo1').disabled=false;
+						 }
+				 }
+
+				// inserir dados na tabela
+			 $("body").on("click", "#btnAdd", function () {
+					//Reference the Name and Country TextBoxes.
+					var txtSku = $("#Skuac");
+					var txtQtd = $("#Qtd");
+					var txtPu = $("#P_unit");
+					//Get the reference of the Table's TBODY element.
+					var tBody = $("#tblProdutos > TBODY")[0];
+ 
+					//Add Row.
+					var row = tBody.insertRow(-1);
+ 
+					//Add Sku cell.
+					var cell = $(row.insertCell(-1));
+					cell.html(txtSku.val());
+ 
+					//Add Qtd cell.
+					cell = $(row.insertCell(-1));
+					cell.html(txtQtd.val());
+ 
+			
+					//Add Punit cell.
+					cell = $(row.insertCell(-1));
+					cell.html(txtPu.val());
+
+
+					//Add Button cell.
+					cell = $(row.insertCell(-1));
+					var btnRemove = $("<input />");
+					btnRemove.attr("type", "button");
+					btnRemove.attr("onclick", "Remove(this);");
+					btnRemove.val("Remove");
+					cell.append(btnRemove);
+ 
+					//Clear the TextBoxes.
+					txtSku.val("");
+					txtQtd.val("");
+					txtPu.val("");
+				});
+ 
+				function Remove(button) {
+					//Determine the reference of the Row using the Button.
+					var row = $(button).closest("TR");
+					var name = $("TD", row).eq(0).html();
+					if (confirm("Deseja apagar: " + name)) {
+						//Get the reference of the Table.
+						var table = $("#tblProdutos")[0];
+ 
+						//Delete the Table row using it's Index.
+						table.deleteRow(row[0].rowIndex);
+					}
+				};
+ 
+				$("body").on("click", "#btnSave", function () {
+					//Loop through the Table rows and build a JSON array.
+					var produtos = new Array();
+					$("#tblProdutos TBODY TR").each(function () {
+						var row = $(this);
+						var produto = {};
+						produto.Sku = row.find("TD").eq(0).html();
+						produto.Qtd = row.find("TD").eq(1).html();
+						produto.P_unit = row.find("TD").eq(2).html();
+						produtos.push(produto);
+					});
+					console.log(produtos);
+					//Send the JSON array to Controller using AJAX.
+					$.ajax({
+						type: "POST",
+						url: "/Pedidos/InserePedidoItem",
+						data: JSON.stringify(produtos),
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						success: function (r) {
+							alert(r + " registro(s) inseridos.");
+							if(r !="0"){
+								document.getElementById('btnSave').disabled=true;
+								document.getElementById('btnConcluir').disabled=false;
+							}
+						}
+					});
+				});
+
+
+
+</script>
+	}
+
+
+<partial name="_PartiaLPedidoManual" />
+

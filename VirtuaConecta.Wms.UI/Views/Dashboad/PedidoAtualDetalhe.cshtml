@@ -1,0 +1,75 @@
+﻿@model List<ChartViewModel>
+@{
+    Layout = null;
+    ViewBag.Title = "Pedidos atuais";
+}
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header" style=" background-color:rgb(36,148,242);">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" style="color:white;">Pedidos dia @ViewBag.link</h4>
+        </div>
+        
+        <div class="modal-body" class="alert alert-info alert-dismissible">
+
+           
+                <div class="block-flat">
+
+                    <table id="TabelaPed" class="tabelaFormato1">
+                        <thead>
+                            <tr>
+
+
+                                <th>Cliente</th>
+                                <th>Nr pedido</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var chart in Model)
+                            {
+                                <tr>
+                                    <td>@chart.Item</td>
+                                    <td>@chart.Valor</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+
+        </div>
+       
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        </div>
+
+    </div>
+</div>
+
+
+
+@section MeusScripts{
+    <script type="text/javascript">
+
+
+
+        $(document).ready(function () {
+
+            var tabela = $('#TabelaPed').DataTable({
+
+                paging: true
+
+            });
+        });
+
+    </script>
+}

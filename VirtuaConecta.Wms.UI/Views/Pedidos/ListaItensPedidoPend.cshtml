@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Pedido1ItensViewModel>
+@{
+    Layout = null;
+}
+<table cellpadding="4" cellspacing="0" border="0" style="padding-left:50px;">
+    <tr>
+        <th>Sku</th>
+        <th>Descrição</th>
+        <th>Qtd</th>
+        <th>P Unit</th>
+        <th>Lote</th>
+        <th>Validade</th>
+
+
+    </tr>
+    @foreach (var item in Model)
+    {
+
+
+
+        var color = "#fff";
+        if (item.Valid_sku == 1)
+        {
+            color = "red";
+        }
+
+
+
+
+
+        <tr style="background-color: @color">
+
+            <td>@item.Sku</td>
+            <td>@item.Descricao</td>
+            <td>@item.Qtd</td>
+            <td>@item.P_unit</td>
+            <td>@item.Lote</td>
+            <td>@item.Validade</td>
+
+        </tr>
+
+    }
+</table>

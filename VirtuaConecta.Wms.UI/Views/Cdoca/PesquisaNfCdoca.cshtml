@@ -1,0 +1,59 @@
+﻿@{
+    @model DadoPesquisaViewModel
+    Layout = "~/Views/Shared/__LayoutWms.cshtml";
+
+}
+
+
+
+<h2>@ViewBag.Title</h2>
+
+<partial name="_PartialMenuPesquisaDataCliente" for="@Model">
+
+
+    @section MeusScripts{
+        <script type="text/javascript">
+            $(".datepicker").datepicker(
+                {
+                    dateFormat: 'yy-mm-dd',
+                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    nextText: 'Próximo',
+                    prevText: 'Anterior',
+
+                    timeOnlyTitle: 'Tempo',
+                    timeText: 'Tempo',
+                    hourText: 'Hora',
+                    minuteText: 'Minuto',
+                    secondText: 'Segundo',
+                    currentText: 'Agora',
+                    closeText: 'Fechar',
+
+
+                    timeFormat: 'HH:mm:ss',
+                    pickerTimeFormat: 'HH:mm:ss',
+
+                    separator: ' '
+
+
+                });
+    $('input[type = submit]').click(function(){
+       $.blockUI({
+           message: '<h3>Aguarde ...<h3>',
+          css: {
+                    border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            opacity: .6,
+             color: '#fff'
+
+        }
+     });
+    });
+
+        </script>
+    }
+

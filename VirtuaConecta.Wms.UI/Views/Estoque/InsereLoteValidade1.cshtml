@@ -1,0 +1,118 @@
+﻿@model EstoqueViewModel
+
+
+@{
+    Layout = null;
+}
+
+<style>
+
+
+    .linha {
+        font-size: 10px;
+    }
+
+
+</style>
+ 
+
+
+<body>
+    @using (Html.BeginForm())
+    {
+    <div class="container">
+
+        @* Linha 1 ---------------------------------------------------------------------------------------------------------------- *@
+
+
+
+        <div id="formulario">
+
+
+            <div class="linha">
+                <div class="form-group">
+                    <label for="Qtd_entrada" class="col-sm-2">Qtd Entrada</label>
+
+                    <input id="Qtd_entrada" class="col-sm-1" name="Qtd_entrada" type="text" value="0,00000">
+                    <label for="Lote" class="col-sm-1">Lote</label>
+                    <input id="Lote" class="col-sm-2" name="Lote" type="text" value="">
+
+                    <label for="Validade" class="col-sm-1">Validade</label>
+                    <input type="date" id="Validade" value="" name="Validade" class="input-sm datepicker col-sm-2">
+                    <label for="PosicaoI" class="col-sm-1">Posição</label>
+                    <input id="PosicaoI" class="col-sm-2" name="Posicao" type="text" value="01000000" onclick="formatapos()">
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-info col-sm-2 add  fa fa-plus" id="addItem"> </button>
+            <button type='button' class='btn btn-danger col-sm-2 remove fa fa-minus'> </button> 
+            <button type='submit' class='btn btn-primary col-sm-2 fa fa-floppy-o'> </button> 
+
+        </div>
+    </div>
+        <div class="form-horizontal" style="width:900px">
+           
+        </div>
+        @*  Insere em campo oculto  o operador que está logado*@
+
+        @Html.HiddenFor(model => model.Qtd_ped)
+        @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.Id_produto)
+        @Html.HiddenFor(model => model.Id_Head_item)
+        @Html.HiddenFor(model => model.Id_cliente)
+        @Html.HiddenFor(model => model.qtd_palet)
+        @Html.HiddenFor(model => model.vol_palet)
+        @Html.HiddenFor(model => model.Operador)
+        @Html.HiddenFor(model => model.Obs)
+        @Html.HiddenFor(model => model.Sku)
+        @Html.HiddenFor(model => model.Nr_Ordem)
+        @Html.HiddenFor(model => model.Nr_nf)
+        @Html.HiddenFor(model => model.Dt_registro)
+        @Html.HiddenFor(model => model.Data_ordem)
+        @Html.HiddenFor(model => model.Tipo_ped)
+        @* @Html.HiddenFor(model => model.Operador, new { @Value = HttpContextAccessor.HttpContext.Session.GetString("UsrLogado") })*@
+    }
+
+
+    <script>
+        $(document).ready(function () {
+            //  $("#addItem").click(adicionaNovosCampos);
+            //   adicionaNovosCampos();
+            // debugger;//já chama a função para exibir os campos do primeiro autor
+
+
+            var bulknitdown = "<div class='linha'>" + $('#formulario .linha').first().html() + "</div>";
+            $('.add').click(function () {
+
+
+                $('#formulario').append(bulknitdown);
+                $('#formulario .linha').last();
+
+            });
+            $('.remove').click(function () {
+                if ($('#formulario .linha').length > 1) {
+                    $('#formulario .linha').last().remove();
+                }
+                else {
+                    alert("Nenhum campo encontrado para remover");
+                }
+            });
+
+
+
+        });
+
+
+
+
+    </script>
+
+
+</body>
+
+
+

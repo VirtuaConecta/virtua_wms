@@ -1,0 +1,58 @@
+﻿@model IEnumerable<FileInfo>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="block-flat">
+            <div>
+
+                <div class="content">
+                    <div>
+                        <table id="PedList" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Descrição</th>
+                                    <th>Tipo</th>
+                                    <th>Data</th>
+                                    <th>Tamanho</th>
+                                    <th>Selec</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @*
+                                    Este for seria para usar as listas compostas
+                                    @foreach (var Sku in Model.ListaSkus)*@
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="odd gradeX">
+                                        <td>@item.Name</td>
+                                        <td>@item.Extension</td>
+                                        <td width="50px">@item.CreationTime</td>
+                                        <td>@item.Length</td>
+                                        <td>
+                                            @* Como cada área tem um modelo proprio de importação farei dentro da área*@
+                                            <a href="@Url.Action("InsereArquivo", "Pedidos", new { Filepath = @item.Directory.ToString() + '/' + @item.Name.ToString() })">
+                                                <i class="fas fa-file-import"></i>
+                                            </a>
+                                            <a href="@Url.Action("ApagaArquivo", "Pedidos", new {Area="", Filepath = @item.Directory.ToString() + '/' + @item.Name.ToString() })"><i class="fas fa-trash"></i>
+                                            </a>
+
+
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

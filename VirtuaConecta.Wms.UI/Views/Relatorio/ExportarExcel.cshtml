@@ -1,0 +1,25 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Exportar";
+}
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+
+                <div class="modal-header" style=" background-color:rgb(36,148,242);">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" style="color:white;">Download de Arquivo  @ViewBag.link</h4>
+                </div>
+                <div class="modal-body" class="alert alert-info alert-dismissible">
+                    @using (Html.BeginForm("ExportarExcel", "Relatorio", new { link = @ViewBag.link },FormMethod.Post))
+                        { <input class="btn btn-success" type="submit" value="Download" /> }
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+
+    </div>
+</div>

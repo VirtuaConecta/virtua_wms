@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Pedido1ViewModel>
+
+
+<div class="block-flat">
+	<table id="TabelaPed" class="tabelaFormato1">
+
+		<thead>
+
+			<tr>
+				<th></th>
+				<th>Id</th>
+				<th>Data Emissão</th>
+				<th>Nr Documento</th>
+				<th>Cliente</th>
+				<th>Destino</th>
+				<th>Cnpj/Cpf</th>
+				<th>Chave Nfe</th>
+				<th>Total Nf</th>
+				<th></th>
+				<th></th>
+			</tr>
+
+		</thead>
+
+		<tbody>
+			@foreach (var Pedido in Model)
+			{
+	   <tr>
+		<td id="linhaClick" class="pm details-control"></td>
+		<td>@Pedido.Indice</td>
+		<td>@Html.DisplayFor(x => Pedido.Dt_emissao)</td>
+		<td>@Pedido.Nr_documento</td>
+		<td>@Pedido.NomeCliente</td>
+		<td>@Pedido.Nome_dest</td>
+		<td>@Pedido.Cnpj_dest</td>
+		<td>@Pedido.Chave</td>
+		<td>@Pedido.Total_nf</td>
+		<td>
+
+						@if (Pedido.Processado == "N")
+						{
+							if (Pedido.Remessa == "I")
+							{
+				              <a href="@Url.Action("InserePedidoEntradaEstoque", new { Id = @Pedido.Indice, ID2 = @Pedido.Remessa })"
+					          class="fa fa-download" , style="font-size:16px;text-indent:10px"></a>
+							}
+							else
+							{
+							  <input type="checkbox" id="chkYe@Pedido.Indice" name="chkYes@Pedido.Indice" />
+							}
+						}
+		</td>
+		<td>
+
+						@if (Pedido.Processado == "N")
+						{
+			 <a href="@Url.Action("ApagarPedidoEntradaEstoque", new { Id = @Pedido.Indice, ID2 = @Pedido.Remessa })"
+					   onclick="return confirm('Deseja Apagar o pedido?')" class="fa fa-trash-o" , style="font-size:16px;text-indent:10px"></a>
+						}
+		</td>
+	   </tr>
+			}
+  </tbody>
+ </table>
+</div>

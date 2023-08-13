@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NPOI" Version="2.5.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EdiDocument\EdiDocument.csproj" />
+    <ProjectReference Include="..\Virtua.Utilities\Virtua.Utilities.csproj" />
+    <ProjectReference Include="..\VirtuaDTO\VirtuaDTO.csproj" />
+    <ProjectReference Include="..\VirtuaRepository\VirtuaRepository.csproj" />
+    <ProjectReference Include="..\XMLdoc\XMLdoc.csproj" />
+  </ItemGroup>
+
+</Project>

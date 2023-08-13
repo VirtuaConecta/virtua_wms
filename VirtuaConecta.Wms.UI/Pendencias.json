@@ -1,0 +1,27 @@
+{
+  "Pendencias": [
+    {
+      "Acao": "Baixa de pedidos pela tela",
+      "Detalhe": "Deve-se mostrar a relação de pedidos a baixar por cliente-período permitindo definir os itens por posição de baixa e executar a baixa",
+      "Estapas concluídas": [
+        "Tela/Controller ListaPedidosSaida",
+        "Criado campo acao para validar os itens que ja tem as qtds definidas",
+        "Feita a validação dos itens agrupados na tela",
+        "criado um objeto json em javascript que contem os nr de pedidos id e qt dos itens a baixar"
+      ],
+      "Pendencias": [
+        "Em ListadeBaixaAgrupada criar a regra para escolha dos registros , limitando ao saldo da posicao e do total do item - OK",
+        " criar forma de enviar a lista dos itens por posicao a ser baixado da tela ListaBaixaAgrupada - ok",
+        " devolver os nr dos pedidos junto com a lista agrupadas para fazer a entrada na mov_ord -ok",
+        " cria o envio do json no botao para a controller",
+        " enviar para uma pagina com o resumo do pedido e nele enviar para baixar",
+        " criar forma de validar se a qtd do pedido existe em estoque e baixar",
+        " Criar lista de separação"
+      ],
+      "Inicio": "2021-09-15",
+      "Fim": "",
+      "Status": "pendente"
+    }
+  ]
+
+}

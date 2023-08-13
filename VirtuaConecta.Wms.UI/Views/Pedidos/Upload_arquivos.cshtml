@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Wms - Pedidos";
+
+    ViewBag.NomeTela = "Importação de Arquivos de pedidos Entradas/Saidas";
+
+    Layout = "~/Views/Shared/__LayoutWms.cshtml";
+}
+
+<section> 
+ 
+    <div class="form-horizontal">
+      <div class="col-sm-12">
+
+            <form id="mydz" action="/Pedidos/UploadArquivosRecebidos"  method="post"  class="dropzone">
+              
+               <div class="form-group">
+                    <div class="col-sm-6"><label class="control-label">Baixar estoque</label>
+                    <p>Pedido de Saida:</p>
+                        <p>Esta opção permite ao sistema baixar o estoque caso tenha saldo</p>
+                    </div>
+                    <div id="chkb" class="col-sm-3">
+                    <input data-size="small" name="baixa" type="checkbox" class="switch"></div>
+               </div>
+                        
+                    <div class="fallback">
+                       
+                            <input type="file" value="file" multiple />
+                            <input type="submit" value="Upload" />
+                     </div>
+
+
+                
+            </form>
+        </div>
+    </div>
+
+</section>
+
+
+
+
+@section MeusScripts{
+    @*//File Upload response from the server*@
+
+<script>
+
+    Dropzone.options.mydz = {
+
+        init: function () {
+            this.on("complete", function (data) {
+
+                  
+                $.get('@Url.Action("Retorna_Notificacao", "Pedidos")',{ }, function (dt) {
+
+
+                    $('.dz-preview').remove();
+                })
+
+            });
+
+            this.on("addedfile", function (data) {
+
+
+               //  location.reload();
+                  // if ($('#chkb').is(":checked")) {
+                     //   alert("CheckBox ativo");
+                   // }
+                  //  else  {
+                 //       alert("CheckBox inativo");
+                 //   }
+        //    alert("Entrou");
+
+          //          $('.switch').bootstrapSwitch('state', true);
+         //          $('.switch').on('switchChange.bootstrapSwitch', function (event, state) {
+
+          //              alert(this);
+          //              alert(event);
+          //              alert(state);
+         //               event.preventDefault();});
+
+            });
+        },
+          dictDefaultMessage: "Arraste o arquivo aqui ou Clique na Área para Importar"
+    };
+
+
+</script>
+}

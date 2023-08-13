@@ -1,0 +1,20 @@
+﻿table.tabelaFormato1 td {
+    /* se aplica a todas as etiquetas td que estiverem dentro da etiqueta table com o id 'nome' */
+    color: black;
+    font-family: Arial;
+    font-size: 9px;
+    padding-left: 3px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    padding-right: 0px;
+}
+
+
+table.tabelaFormato1 th {
+    /* se aplica a todas as etiquetas td que estiverem dentro da etiqueta table com o id 'nome' */
+    color: black;
+    /* background-color: #808080; */
+    font-family: Arial;
+    font-size: 11px;
+    padding: 5px 10px 5px 10px;
+}

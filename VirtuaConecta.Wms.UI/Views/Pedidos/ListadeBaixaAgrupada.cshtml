@@ -1,0 +1,309 @@
+﻿@model IEnumerable<Pedido1ItensViewModel>
+ @{
+	ViewBag.Title =  "";
+	Layout = "~/Views/Shared/__LayoutWms.cshtml";
+}
+@section MeusStyles
+{
+<link href="~/assets/css/tabela_local.css" rel="stylesheet" />
+
+<style>
+	.pm {
+		cursor: pointer;
+	}
+
+	.detail {
+		background-color: #d4d0d8;
+		padding: 7px;
+	}
+
+	.texto {
+		height: 18px;
+		width: 60px;
+	
+	}
+
+	td.details-control {
+		background: url('../../assets/img/details_open.png') no-repeat center center;
+		cursor: pointer;
+	}
+
+	tr.shown td.details-control {
+		background: url('../../assets/img/details_close.png') no-repeat center center;
+	}
+</style>
+}
+<h2>Wms- Lista de pedidos Agrupados</h2>
+<h3 id="NrPedidos">Pedidos: @ViewBag.Pedidos</h3>
+<div class="block-flat">
+ <table id="Tabela1" class="tabelaFormato1">
+
+  <thead>
+
+   <tr>
+	<th></th>
+	<th>Cod Produto</th>
+	<th>Sku</th>
+	<th>Descrição</th>
+	<th>Und</th>
+	<th>Qtd</th>
+	<th></th>
+	<th>Ação</th>
+   </tr>
+
+  </thead>
+
+  <tbody>
+			@foreach (var Pedido in Model)
+			{
+	   <tr>
+
+		<td id="linhaClick" class="pm details-control"></td>
+		<td>@Pedido.id_produto</td>
+		<td>@Pedido.Sku</td>
+		<td>@Html.DisplayFor(x => Pedido.Descricao)</td>
+		<td>@Pedido.Und</td>
+		<td>@Pedido.Qtd</td>
+		<td>
+		 <button type="button" class="btn btn-success btn-sm" onclick="validar1(); return false;"><i class="fa fa-check-double"></i></button>
+		</td>
+		<td>@Pedido.Acao</td>
+	   </tr>
+			}
+  </tbody>
+ </table>
+
+ <div>
+	  <button id="btn_baixar"  type="button" class="btn btn-success" onclick="executarBaixa(); return false;"  disabled="disabled">Gerar lista de baixa <i class="fa fa-tasks"></i> </button>
+
+ </div>
+
+</div>
+
+
+@section MeusScripts{
+<script>
+		var Sku="";
+		var QtdSku="";
+		var id_Sku=""
+		var oTr= null;
+		 var Linha=null;
+	
+		var DataJsonItensSelecionados = {};
+		  $(document).ready(function () {
+
+
+
+
+
+			// setup jquery dataTables 
+			var tabela = $('#Tabela1').DataTable({
+
+				paging: true
+			});
+
+
+			//Evento de adição par abrir e fechar as linas filhas
+			$('#Tabela1 tbody').on('click', 'td.details-control', function () {
+				 oTr = $(this).closest('tr');
+				  Linha = tabela.row(oTr);
+
+					if (Linha.child.isShown()) {
+						// Se a janela das linhas filhas estiver aberta - fechar
+						Linha.child.hide();
+						//Mostra a imagem Do Head(+)
+						oTr.removeClass('shown');
+					}
+					else {
+						//Abra esta linha
+						// Aqui abre a função que vai buscar o dado da linha filha
+
+						var id = oTr.find("td:eq(1)").html()
+						Sku= oTr.find("td:eq(2)").html()
+						QtdSku= oTr.find("td:eq(5)").html()
+						id_Sku =id
+						if( oTr.find('td').eq(7).html().toUpperCase() != "VALIDADO"){ 
+							$.get('@Url.Action("ListaProdutoEstoque", "Pedidos")', { ID: id }, function (itens) {
+
+								Linha.child(itens).show();
+
+							});
+							//Mostra a imagem do detalhe(-)
+			
+							   oTr.addClass('shown');
+						}
+					}
+			});
+
+
+
+
+		});
+
+
+	//funcao para validar se as quantidades dos itens estão corretas.
+	//devolve a validação para tela
+	//ao final dos itens validados deve habilitar o botao de executar a baixa e desabilitar
+	//os botoes de validação dos itens
+	function validar1(dadoreg) {
+
+		  //Reference the Table.
+			var grid = document.getElementById("tab_item");
+			
+
+          if(grid != null)
+		  {
+			//Reference the CheckBoxes in Table.
+			var qtdReg = grid.getElementsByTagName("INPUT");
+			var quantidades = 0;
+			var contar=0;
+		    var  ItemArray=[];
+		
+			//Loop through the CheckBoxes.
+			for (var i = 0; i < qtdReg.length; i++) {
+				var ObjectItems={};
+				   var row = qtdReg[i].parentNode.parentNode;
+				   var id = row.cells[0].innerHTML;
+				   
+				   var qtdPos = parseFloat(row.cells[3].innerHTML.replace(',','.'));
+				   var valortxt =$("#"+id).val().replace(',','.');
+				   var enumero =isNumber(valortxt);
+				   if (enumero)
+				   {
+					   if(parseFloat(valortxt)<=qtdPos){
+						    quantidades += parseFloat(valortxt);
+							ObjectItems.Id = id;
+							ObjectItems.Id_produto=id_Sku;
+							ObjectItems.Qtd = parseFloat(valortxt);
+							ItemArray.push({ObjectItems:ObjectItems})
+					   }
+					   else{
+
+						   alert("Qtd a baixar maior que a disponível no Id= "+id)
+						   ArrayItems=[];
+						   return
+						  
+					   }
+					  
+				   }
+				   contar++;
+
+			}
+			if (quantidades == ""){
+
+			   alert('Não há quantidades selecionados');
+			   ArrayItems=[];
+			}else{
+
+                // var qtdSku = getCellValue(sku);
+				var qtdTotal = parseFloat(QtdSku.replace(',','.'));
+				if (qtdTotal>quantidades)
+				{
+					alert("Qtd selecionadas abaixo da qtd do pedido. Total: "+qtdTotal+" Selecinonadas: "+quantidades);
+					ArrayItems=[];
+					return
+				}
+				else if(qtdTotal<quantidades)
+				{
+					alert("Qtd selecionadas acima da qtd do pedido. Total: "+qtdTotal+" Selecinonadas: "+quantidades);
+					ArrayItems=[];
+					return
+				}
+				else{
+
+					//alert("Qtd selecionadas OK");
+					  oTr.find('td').eq(7).text('Validado').css({"font-weight":"bold","color":"red","font-size": "150%"}); 
+					 
+
+					  //adiciona o item ao array
+					  AddDados(ItemArray);
+					  //uma vez validado o produto nao abre mais alinha
+					    fechalinhaFilha();
+					//apos verificar que todos os itens foram validados habilita o btn de baixa
+					var habilitaBtn =  habilitaBotaoDeBaixa();
+					if(habilitaBtn){
+						document.getElementById('btn_baixar').disabled=false;
+					}
+					return
+				}
+
+				alert(quantidades+"|"+Sku+"|"+QtdSku);
+			}
+		}
+		else{
+			alert("Ainda não foi escolhida quatidades para este item!");
+
+		}
+	}
+
+	// funcao para atualizar os dados no localStorage
+	function AddDados(objectItems ){
+		objectItems.forEach(InserENoObjeto);
+	}
+
+	function InserENoObjeto(item, index) {
+                      if(jQuery.isEmptyObject(DataJsonItensSelecionados)){
+
+						   var Nr_doc_origem = document.getElementById("NrPedidos").innerText.split(':');
+
+						 DataJsonItensSelecionados= {"pedidos":Nr_doc_origem[1].trim(),"items":[{"Id":item.ObjectItems.Id,"Qtd":item.ObjectItems.Qtd,"Id_produto":item.ObjectItems.Id_produto }]}
+					  }
+					  else{
+
+						  DataJsonItensSelecionados.items.push({"Id":item.ObjectItems.Id,"Qtd":item.ObjectItems.Qtd,"Id_produto":item.ObjectItems.Id_produto});
+
+					  }
+}
+
+function fechalinhaFilha()
+     {
+		if (Linha.child.isShown()) 
+		{
+			 // Se a janela das linhas filhas estiver aberta - fechar
+			 Linha.child.hide();
+			 //Mostra a imagem Do Head(+)
+			 oTr.removeClass('shown');
+
+        }
+      }
+
+	//Valida se todos os itens foram validados
+	// precisa corrigir
+	function habilitaBotaoDeBaixa(){
+    	var  grid_master = document.getElementById("Tabela1");
+		var qtdReg_master = grid_master.getElementsByTagName("button");
+		var validado=true;
+		var registros =qtdReg_master.length;
+
+		  for (let i = 0; i <  registros; i++ )
+		   {
+			   var row = qtdReg_master[i].parentNode.parentNode;
+					   var valido = row.cells[7].innerHTML;
+				if (valido.toUpperCase()!='VALIDADO')
+				{
+				 validado=false;
+				}
+
+		   }
+
+		   return validado;
+	 }
+
+	 function executarBaixa()
+	 {
+		  var json = JSON.stringify(DataJsonItensSelecionados);
+	
+                  var url = '@Url.Action("CriaListaDeConferenciaDeBaixa", "Pedidos", new {Js = "JsonData"})';
+                    window.location.href = url.replace('JsonData', json); 
+
+	 }
+
+
+	 //Funcao para validar se o campo é numerico
+	function isNumber(n) {
+	  return !isNaN(parseFloat(n)) && isFinite(n);
+	}
+</script>
+	 }
+
+
